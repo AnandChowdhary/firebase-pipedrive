@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/koj-co/pipedrive-utils/issues"
   },
-  "homepage": "https://github.com/koj-co/pipedrive-utils#readme"
+  "homepage": "https://github.com/koj-co/pipedrive-utils#readme",
+  "devDependencies": {
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  }
 }

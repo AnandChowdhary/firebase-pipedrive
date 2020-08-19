@@ -1,0 +1,23 @@
+{
+  "name": "pipedrive-utils",
+  "version": "0.0.0",
+  "description": "Utilities for the Pipedrive CRM",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koj-co/pipedrive-utils.git"
+  },
+  "keywords": [
+    "pipedrive",
+    "crm"
+  ],
+  "author": "Anand Chowdhary <mail@anandchowdhary.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/koj-co/pipedrive-utils/issues"
+  },
+  "homepage": "https://github.com/koj-co/pipedrive-utils#readme"
+}

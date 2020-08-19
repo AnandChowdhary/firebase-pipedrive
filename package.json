@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/koj-co/pipedrive-utils#readme",
   "devDependencies": {
+    "@types/node": "^14.6.0",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
   },

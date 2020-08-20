@@ -145,8 +145,46 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
           : "apartment"
       }`,
     });
-    if (lead) {
-      //
+    if (lead?.data?.id) {
+      await addNote(
+        `<p><strong>Onboarding responses</strong></p><ul>${Object.keys(data)
+          .map(
+            (key) =>
+              `<li><strong>${capitalize(
+                key.replace(/([A-Z])/g, " $1")
+              )}</strong>: ${
+                typeof data[key] === "object"
+                  ? data[key]._seconds
+                    ? new Date(
+                        data[key]._seconds * 1000
+                      ).toLocaleString("en-CH", { timeZone: "Europe/Zurich" })
+                    : `<code>${JSON.stringify(data[key])}</code>`
+                  : data[key]
+              }</li>`
+          )
+          .join("")}</ul>`,
+        lead.data.id
+      );
+      if (data?.userId) {
+        const elasticData = await getElasticSearchData(data.userId);
+        let text = "";
+        if (elasticData?._source.page_url_pathname_lang)
+          text += "\n- language: " + elasticData._source.page_url_pathname_lang;
+        if (elasticData?._source.location_subdivisions_0_names_en)
+          text +=
+            "\n- subdivision: " +
+            elasticData._source.location_subdivisions_0_names_en;
+        if (elasticData?._source.location_country_names_en)
+          text +=
+            "\n- country: " + elasticData._source.location_country_names_en;
+        if (elasticData?._source.location_city_names_en)
+          text += "\n- city: " + elasticData._source.location_city_names_en;
+        if (elasticData?._source.user_agent_os_name)
+          text += "\n- os: " + elasticData._source.user_agent_os_name;
+        if (elasticData?._source.user_agent_browser_name)
+          text += "\n- browser: " + elasticData._source.user_agent_browser_name;
+        await addNote(text, lead.data.id);
+      }
     }
   }
 };
@@ -159,23 +197,6 @@ const migratePreviousLeads = async () => {
     docs.forEach((doc) => ids.push(doc.id));
     for await (const id of ids) {
       const data = (await item.doc(id).get()).data();
-      if (data?.userId) {
-        const elasticData = await getElasticSearchData(data.userId);
-        if (elasticData?._source.page_url_pathname_lang)
-          data.language = elasticData._source.page_url_pathname_lang;
-        if (elasticData?._source.location_subdivisions_0_names_en)
-          data.subdivision =
-            elasticData._source.location_subdivisions_0_names_en;
-        if (elasticData?._source.location_country_names_en)
-          data.country = elasticData._source.location_country_names_en;
-        if (elasticData?._source.location_city_names_en)
-          data.city = elasticData._source.location_city_names_en;
-        if (elasticData?._source.user_agent_os_name)
-          data.os = elasticData._source.user_agent_os_name;
-        if (elasticData?._source.user_agent_browser_name)
-          data.browser = elasticData._source.user_agent_browser_name;
-      }
-      console.log(JSON.stringify(data));
       await firebaseToPipedrive(data);
     }
   }

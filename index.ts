@@ -40,7 +40,7 @@ interface Lead {
     currency: string;
   };
   expected_close_date?: string;
-  potential_value?: {
+  "239af2d22f89a6cce027a246134066f69bbd80ad"?: {
     amount: number;
     currency: string;
   };
@@ -128,7 +128,7 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
             }</li>`
         )
         .join("")}</ul>`,
-      potential_value: !isNaN(parseInt(data.budget))
+      "239af2d22f89a6cce027a246134066f69bbd80ad": !isNaN(parseInt(data.budget))
         ? {
             amount: parseInt(data.budget),
             currency: "CHF",

@@ -242,7 +242,6 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
             location_subdivisions_0_names_en ||
             record?._source.location_subdivisions_0_names_en;
         });
-        console.log(original_utm_source);
         if (
           page_url_pathname_lang ||
           location_city_names_en ||
@@ -295,26 +294,21 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
               location_subdivisions_0_names_en ||
               item._source.location_subdivisions_0_names_en;
           });
-          if (
-            original_utm_source ||
-            original_utm_medium ||
-            original_utm_campaign
-          ) {
-            let updateData: any = {};
-            if (original_utm_source !== "<em>Unknown</em>")
-              updateData[CustomFields.UTM_SOURCE] = original_utm_source;
-            if (original_utm_medium !== "<em>Unknown</em>")
-              updateData[CustomFields.UTM_MEDIUM] = original_utm_medium;
-            if (original_utm_campaign !== "<em>Unknown</em>")
-              updateData[CustomFields.UTM_CAMPAIGN] = original_utm_campaign;
-            updateData[CustomFields.ELASTICSEARCH_USER_ID] = data.userId;
-            updateData[CustomFields.FIREBASE_RECORD_ID] = data.id;
-            updateData[CustomFields.REFERRER_SOURCE] =
-              original_utm_medium === "online_advertising"
-                ? "Online ads"
-                : "Direct";
-            await updateLead(lead.data.id, updateData);
-          }
+          let updateData: any = {};
+          if (original_utm_source !== "<em>Unknown</em>")
+            updateData[CustomFields.UTM_SOURCE] = original_utm_source;
+          if (original_utm_medium !== "<em>Unknown</em>")
+            updateData[CustomFields.UTM_MEDIUM] = original_utm_medium;
+          if (original_utm_campaign !== "<em>Unknown</em>")
+            updateData[CustomFields.UTM_CAMPAIGN] = original_utm_campaign;
+          updateData[CustomFields.ELASTICSEARCH_USER_ID] = data.userId;
+          updateData[CustomFields.FIREBASE_RECORD_ID] = data.id;
+          updateData[CustomFields.REFERRER_SOURCE] =
+            original_utm_medium === "online_advertising"
+              ? "Online ads"
+              : "Direct";
+          await updateLead(lead.data.id, updateData);
+
           await addNote(text, lead.data.id);
         }
       }
@@ -326,7 +320,7 @@ const migratePreviousLeads = async () => {
   console.log("Migrating previous leads...");
   for await (const item of [subscribers]) {
     const docs = await item.get();
-    const ids: string[] = ["qPK8qEdVmfwPRZvWrdJn"];
+    const ids: string[] = [];
     docs.forEach((doc) => ids.push(doc.id));
     for await (const id of ids) {
       const data = (await item.doc(id).get()).data();
@@ -350,5 +344,4 @@ const getElasticSearchData = async (userId: string) => {
   return (((data || {}).body || {}).hits || {}).hits || [];
 };
 
-migratePreviousLeads();
-// migrateLiveLeads();
+migrateLiveLeads();

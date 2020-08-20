@@ -106,6 +106,11 @@ export const addLead = async (lead: Lead) => {
   }
 };
 
+export const updateLead = async (id: string, data: any) => {
+  await api.post(`/deals/${id}?api_token=${API_KEY}`, data);
+  console.log("Updated lead", id);
+};
+
 const sent: string[] = [];
 const migrateLiveLeads = async () => {
   for await (const item of [subscribers]) {
@@ -152,7 +157,7 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
             (key) =>
               `<li><strong>${capitalize(
                 key.replace(/([A-Z])/g, " $1")
-              )}</strong>: ${
+              )}:</strong> ${
                 typeof data[key] === "object"
                   ? data[key]._seconds
                     ? new Date(
@@ -167,22 +172,57 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
       );
       if (data?.userId) {
         const elasticData = await getElasticSearchData(data.userId);
-        let text = "";
-        if (elasticData?._source.page_url_pathname_lang)
-          text += "\n- language: " + elasticData._source.page_url_pathname_lang;
-        if (elasticData?._source.location_subdivisions_0_names_en)
-          text +=
-            "\n- subdivision: " +
-            elasticData._source.location_subdivisions_0_names_en;
-        if (elasticData?._source.location_country_names_en)
-          text +=
-            "\n- country: " + elasticData._source.location_country_names_en;
-        if (elasticData?._source.location_city_names_en)
-          text += "\n- city: " + elasticData._source.location_city_names_en;
-        if (elasticData?._source.user_agent_os_name)
-          text += "\n- os: " + elasticData._source.user_agent_os_name;
-        if (elasticData?._source.user_agent_browser_name)
-          text += "\n- browser: " + elasticData._source.user_agent_browser_name;
+        let text = "<p><strong>Analytics data</strong></p>";
+        let page_url_pathname_lang = "<em>Unknown</em>";
+        let location_city_names_en = "<em>Unknown</em>";
+        let user_agent_os_name = "<em>Unknown</em>";
+        let user_agent_browser_name = "<em>Unknown</em>";
+        let version = "<em>Unknown</em>";
+        let original_utm_source = "<em>Unknown</em>";
+        let original_utm_medium = "<em>Unknown</em>";
+        let original_utm_campaign = "<em>Unknown</em>";
+        let location_subdivisions_0_names_en = "<em>Unknown</em>";
+        text += `<ul>
+          <li><strong>City:</strong> ${location_city_names_en}</li>
+          <li><strong>Area:</strong> ${location_subdivisions_0_names_en}</li>
+          <li><strong>Operating system:</strong> ${user_agent_os_name}</li>
+          <li><strong>Browser:</strong> ${user_agent_browser_name}</li>
+          <li><strong>Site language:</strong> ${page_url_pathname_lang}</li>
+          <li><strong>Site version:</strong> ${version}</li>
+        </ul>`;
+        elasticData.forEach((item: any) => {
+          page_url_pathname_lang =
+            page_url_pathname_lang ?? item._source.page_url_pathname_lang;
+          location_city_names_en =
+            location_city_names_en ?? item._source.location_city_names_en;
+          user_agent_os_name =
+            user_agent_os_name ?? item._source.user_agent_os_name;
+          user_agent_browser_name =
+            user_agent_browser_name ?? item._source.user_agent_browser_name;
+          version = version ?? item._source.version;
+          original_utm_source =
+            original_utm_source ?? item._source.original_utm_source;
+          original_utm_medium =
+            original_utm_medium ?? item._source.original_utm_medium;
+          original_utm_campaign =
+            original_utm_campaign ?? item._source.original_utm_campaign;
+          location_subdivisions_0_names_en =
+            location_subdivisions_0_names_en ??
+            item._source.location_subdivisions_0_names_en;
+        });
+        if (
+          original_utm_source + original_utm_medium + original_utm_campaign !==
+          "<em>Unknown</em><em>Unknown</em><em>Unknown</em>"
+        ) {
+          let updateData: any = {};
+          if (original_utm_source !== "<em>Unknown</em>")
+            updateData[CustomFields.UTM_SOURCE] = original_utm_source;
+          if (original_utm_medium !== "<em>Unknown</em>")
+            updateData[CustomFields.UTM_MEDIUM] = original_utm_medium;
+          if (original_utm_campaign !== "<em>Unknown</em>")
+            updateData[CustomFields.UTM_CAMPAIGN] = original_utm_campaign;
+          await updateLead(lead.data.id, updateData);
+        }
         await addNote(text, lead.data.id);
       }
     }
@@ -202,24 +242,10 @@ const migratePreviousLeads = async () => {
   }
 };
 
-const getElasticSearchData = async (
-  userId: string
-): Promise<
-  | {
-      _source: {
-        page_url_pathname_lang?: string;
-        location_subdivisions_0_names_en?: string;
-        location_country_names_en?: string;
-        location_city_names_en?: string;
-        user_agent_os_name?: string;
-        user_agent_browser_name?: string;
-      };
-    }
-  | undefined
-> => {
+const getElasticSearchData = async (userId: string) => {
   const data = await client.search({
     index: "analytics-website",
-    size: 1,
+    size: 100,
     body: {
       sort: "date",
       query: {
@@ -227,8 +253,7 @@ const getElasticSearchData = async (
       },
     },
   });
-  const items = (((data || {}).body || {}).hits || {}).hits || [];
-  if (items.length) return items[0];
+  return (((data || {}).body || {}).hits || {}).hits || [];
 };
 
 migratePreviousLeads();

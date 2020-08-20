@@ -134,6 +134,7 @@ const migrateLiveLeads = async () => {
 
 const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
   if (data && data.email && !data.dev) {
+    if (Math.random() < 0.6) return console.log("skip");
     console.log("Sending record for", data.email);
     const person = await addPerson({
       name: data.name,
@@ -149,6 +150,8 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
           ? `${capitalize(data.locationName.split(" ")[0])} apartment`
           : "apartment"
       }`,
+      value: data.budget ?? 0,
+      currency: "CHF",
     });
     if (lead?.data?.id) {
       await addNote(
@@ -170,9 +173,48 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
           .join("")}</ul>`,
         lead.data.id
       );
+      if (Array.isArray(data.photosUrls) && data.photosUrls.length) {
+        const photoNote = `<p><strong>Apartment photos</strong></p>
+        ${
+          Array.isArray(data.photoUrls)
+            ? data.photoUrls.map(
+                (
+                  img: string
+                ) => `<a href=${img} target="_blank" class="d-inline-block">
+        <img
+          alt=""
+          class="big-uploaded-image"
+          src=${img
+            .replace("https://kojcdn.com/", "https://kojcdn.com/w_200,c_fill/")
+            .replace(".pdf", ".png")} />
+      </a>`
+              )
+            : "<em>No apartment photos uploaded</em>"
+        }`;
+        await addNote(photoNote, lead.data.id);
+      }
+      if (Array.isArray(data.floorPlanUrls) && data.floorPlanUrls.length) {
+        const floorPlanNote = `<p><strong>Floor plan photos</strong></p>
+        ${
+          Array.isArray(data.floorPlanUrls)
+            ? data.floorPlanUrls.map(
+                (
+                  img: string
+                ) => `<a href=${img} target="_blank" class="d-inline-block">
+        <img 
+          alt=""
+          class="big-uploaded-image"
+          src=${img
+            .replace("https://kojcdn.com/", "https://kojcdn.com/w_800,c_fill/")
+            .replace(".pdf", ".png")} />
+      </a>`
+              )
+            : "<em>No floor plan photos uploaded</em>"
+        }`;
+        await addNote(floorPlanNote, lead.data.id);
+      }
       if (data?.userId) {
         const elasticData = await getElasticSearchData(data.userId);
-        let text = "<p><strong>Analytics data</strong></p>";
         let page_url_pathname_lang = "<em>Unknown</em>";
         let location_city_names_en = "<em>Unknown</em>";
         let user_agent_os_name = "<em>Unknown</em>";
@@ -182,7 +224,19 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
         let original_utm_medium = "<em>Unknown</em>";
         let original_utm_campaign = "<em>Unknown</em>";
         let location_subdivisions_0_names_en = "<em>Unknown</em>";
-        text += `<ul>
+        if (
+          page_url_pathname_lang !== "<em>Unknown</em>" ||
+          location_city_names_en !== "<em>Unknown</em>" ||
+          user_agent_os_name !== "<em>Unknown</em>" ||
+          user_agent_browser_name !== "<em>Unknown</em>" ||
+          version !== "<em>Unknown</em>" ||
+          original_utm_source !== "<em>Unknown</em>" ||
+          original_utm_medium !== "<em>Unknown</em>" ||
+          original_utm_campaign !== "<em>Unknown</em>" ||
+          location_subdivisions_0_names_en !== "<em>Unknown</em>"
+        ) {
+          let text = "<p><strong>Analytics data</strong></p>";
+          text += `<ul>
           <li><strong>City:</strong> ${location_city_names_en}</li>
           <li><strong>Area:</strong> ${location_subdivisions_0_names_en}</li>
           <li><strong>Operating system:</strong> ${user_agent_os_name}</li>
@@ -190,40 +244,42 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
           <li><strong>Site language:</strong> ${page_url_pathname_lang}</li>
           <li><strong>Site version:</strong> ${version}</li>
         </ul>`;
-        elasticData.forEach((item: any) => {
-          page_url_pathname_lang =
-            page_url_pathname_lang ?? item._source.page_url_pathname_lang;
-          location_city_names_en =
-            location_city_names_en ?? item._source.location_city_names_en;
-          user_agent_os_name =
-            user_agent_os_name ?? item._source.user_agent_os_name;
-          user_agent_browser_name =
-            user_agent_browser_name ?? item._source.user_agent_browser_name;
-          version = version ?? item._source.version;
-          original_utm_source =
-            original_utm_source ?? item._source.original_utm_source;
-          original_utm_medium =
-            original_utm_medium ?? item._source.original_utm_medium;
-          original_utm_campaign =
-            original_utm_campaign ?? item._source.original_utm_campaign;
-          location_subdivisions_0_names_en =
-            location_subdivisions_0_names_en ??
-            item._source.location_subdivisions_0_names_en;
-        });
-        if (
-          original_utm_source + original_utm_medium + original_utm_campaign !==
-          "<em>Unknown</em><em>Unknown</em><em>Unknown</em>"
-        ) {
-          let updateData: any = {};
-          if (original_utm_source !== "<em>Unknown</em>")
-            updateData[CustomFields.UTM_SOURCE] = original_utm_source;
-          if (original_utm_medium !== "<em>Unknown</em>")
-            updateData[CustomFields.UTM_MEDIUM] = original_utm_medium;
-          if (original_utm_campaign !== "<em>Unknown</em>")
-            updateData[CustomFields.UTM_CAMPAIGN] = original_utm_campaign;
-          await updateLead(lead.data.id, updateData);
+          elasticData.forEach((item: any) => {
+            page_url_pathname_lang =
+              page_url_pathname_lang ?? item._source.page_url_pathname_lang;
+            location_city_names_en =
+              location_city_names_en ?? item._source.location_city_names_en;
+            user_agent_os_name =
+              user_agent_os_name ?? item._source.user_agent_os_name;
+            user_agent_browser_name =
+              user_agent_browser_name ?? item._source.user_agent_browser_name;
+            version = version ?? item._source.version;
+            original_utm_source =
+              original_utm_source ?? item._source.original_utm_source;
+            original_utm_medium =
+              original_utm_medium ?? item._source.original_utm_medium;
+            original_utm_campaign =
+              original_utm_campaign ?? item._source.original_utm_campaign;
+            location_subdivisions_0_names_en =
+              location_subdivisions_0_names_en ??
+              item._source.location_subdivisions_0_names_en;
+          });
+          if (
+            original_utm_source !== "<em>Unknown</em>" ||
+            original_utm_medium !== "<em>Unknown</em>" ||
+            original_utm_campaign !== "<em>Unknown</em>"
+          ) {
+            let updateData: any = {};
+            if (original_utm_source !== "<em>Unknown</em>")
+              updateData[CustomFields.UTM_SOURCE] = original_utm_source;
+            if (original_utm_medium !== "<em>Unknown</em>")
+              updateData[CustomFields.UTM_MEDIUM] = original_utm_medium;
+            if (original_utm_campaign !== "<em>Unknown</em>")
+              updateData[CustomFields.UTM_CAMPAIGN] = original_utm_campaign;
+            await updateLead(lead.data.id, updateData);
+          }
+          await addNote(text, lead.data.id);
         }
-        await addNote(text, lead.data.id);
       }
     }
   }
@@ -253,6 +309,7 @@ const getElasticSearchData = async (userId: string) => {
       },
     },
   });
+  console.log("Fetched ElasticSearch data", userId);
   return (((data || {}).body || {}).hits || {}).hits || [];
 };
 

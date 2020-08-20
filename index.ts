@@ -12,7 +12,7 @@ const createAwsElasticsearchConnector = require("aws-elasticsearch-connector");
 config();
 
 const FIREBASE_SERVICE_ACCOUNT_KEY: ServiceAccount = JSON.parse(
-  process.env.FIREBASE_SERVICE_ACCOUNT_KEY ?? ""
+  process.env.FIREBASE_SERVICE_ACCOUNT_KEY || ""
 );
 const FIREBASE_DATABASE_URL = process.env.FIREBASE_DATABASE_URL;
 const API_KEY = process.env.API_KEY;
@@ -42,7 +42,6 @@ enum CustomFields {
   ELASTICSEARCH_USER_ID = "57bdc336b1fb99fc9447c89cb21870fe4a032291",
   FIREBASE_RECORD_ID = "b4b22c726c33517f3810d338d77c567c8b358da4",
   REFERRER_SOURCE = "2d708892b623a93d35eb649f4c730f61107c3125",
-  REFERRER_VALUE = "2802445329546a203d238d3620827551ebc53105",
   UTM_CAMPAIGN = "91775aa4b6296a3582586c38955b837166b1dfb1",
   UTM_MEDIUM = "2359203a503209c865119c28dac11de5c3ebf251",
   UTM_SOURCE = "a9d761a6c3cdba4bfa305c5f41c396ef1be3872b",
@@ -107,7 +106,7 @@ export const addLead = async (lead: Lead) => {
 };
 
 export const updateLead = async (id: string, data: any) => {
-  await api.post(`/deals/${id}?api_token=${API_KEY}`, data);
+  await api.put(`/deals/${id}?api_token=${API_KEY}`, data);
   console.log("Updated lead", id);
 };
 
@@ -134,7 +133,6 @@ const migrateLiveLeads = async () => {
 
 const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
   if (data && data.email && !data.dev) {
-    if (Math.random() < 0.6) return console.log("skip");
     console.log("Sending record for", data.email);
     const person = await addPerson({
       name: data.name,
@@ -150,7 +148,7 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
           ? `${capitalize(data.locationName.split(" ")[0])} apartment`
           : "apartment"
       }`,
-      value: data.budget ?? 0,
+      value: data.budget || 0,
       currency: "CHF",
     });
     if (lead?.data?.id) {
@@ -215,79 +213,92 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
       }
       if (data?.userId) {
         const elasticData = await getElasticSearchData(data.userId);
-        let page_url_pathname_lang = "<em>Unknown</em>";
-        let location_city_names_en = "<em>Unknown</em>";
-        let user_agent_os_name = "<em>Unknown</em>";
-        let user_agent_browser_name = "<em>Unknown</em>";
-        let version = "<em>Unknown</em>";
-        let original_utm_source = "<em>Unknown</em>";
-        let original_utm_medium = "<em>Unknown</em>";
-        let original_utm_campaign = "<em>Unknown</em>";
-        let location_subdivisions_0_names_en = "<em>Unknown</em>";
+        let page_url_pathname_lang = "";
+        let location_city_names_en = "";
+        let user_agent_os_name = "";
+        let user_agent_browser_name = "";
+        let version = "";
+        let original_utm_source = "";
+        let original_utm_medium = "";
+        let original_utm_campaign = "";
+        let location_subdivisions_0_names_en = "";
         elasticData.forEach((record: any) => {
           page_url_pathname_lang =
-            page_url_pathname_lang ?? record?._source.page_url_pathname_lang;
+            page_url_pathname_lang || record?._source.page_url_pathname_lang;
           location_city_names_en =
-            location_city_names_en ?? record?._source.location_city_names_en;
+            location_city_names_en || record?._source.location_city_names_en;
           user_agent_os_name =
-            user_agent_os_name ?? record?._source.user_agent_os_name;
+            user_agent_os_name || record?._source.user_agent_os_name;
           user_agent_browser_name =
-            user_agent_browser_name ?? record?._source.user_agent_browser_name;
-          version = version ?? record?._source.version;
+            user_agent_browser_name || record?._source.user_agent_browser_name;
+          version = version || record?._source.version;
           original_utm_source =
-            original_utm_source ?? record?._source.original_utm_source;
+            original_utm_source || record?._source.original_utm_source;
           original_utm_medium =
-            original_utm_medium ?? record?._source.original_utm_medium;
+            original_utm_medium || record?._source.original_utm_medium;
           original_utm_campaign =
-            original_utm_campaign ?? record?._source.original_utm_campaign;
+            original_utm_campaign || record?._source.original_utm_campaign;
           location_subdivisions_0_names_en =
-            location_subdivisions_0_names_en ??
+            location_subdivisions_0_names_en ||
             record?._source.location_subdivisions_0_names_en;
         });
+        console.log(original_utm_source);
         if (
-          page_url_pathname_lang !== "<em>Unknown</em>" ||
-          location_city_names_en !== "<em>Unknown</em>" ||
-          user_agent_os_name !== "<em>Unknown</em>" ||
-          user_agent_browser_name !== "<em>Unknown</em>" ||
-          version !== "<em>Unknown</em>" ||
-          original_utm_source !== "<em>Unknown</em>" ||
-          original_utm_medium !== "<em>Unknown</em>" ||
-          original_utm_campaign !== "<em>Unknown</em>" ||
-          location_subdivisions_0_names_en !== "<em>Unknown</em>"
+          page_url_pathname_lang ||
+          location_city_names_en ||
+          user_agent_os_name ||
+          user_agent_browser_name ||
+          version ||
+          original_utm_source ||
+          original_utm_medium ||
+          original_utm_campaign ||
+          location_subdivisions_0_names_en
         ) {
           let text = "<p><strong>Analytics data</strong></p>";
           text += `<ul>
-          <li><strong>City:</strong> ${location_city_names_en}</li>
-          <li><strong>Area:</strong> ${location_subdivisions_0_names_en}</li>
-          <li><strong>Operating system:</strong> ${user_agent_os_name}</li>
-          <li><strong>Browser:</strong> ${user_agent_browser_name}</li>
-          <li><strong>Site language:</strong> ${page_url_pathname_lang}</li>
-          <li><strong>Site version:</strong> ${version}</li>
+          <li><strong>City:</strong> ${
+            location_city_names_en || "<em>Unknown</em>"
+          }</li>
+          <li><strong>Area:</strong> ${
+            location_subdivisions_0_names_en || "<em>Unknown</em>"
+          }</li>
+          <li><strong>Operating system:</strong> ${
+            user_agent_os_name || "<em>Unknown</em>"
+          }</li>
+          <li><strong>Browser:</strong> ${
+            user_agent_browser_name || "<em>Unknown</em>"
+          }</li>
+          <li><strong>Site language:</strong> ${
+            page_url_pathname_lang || "<em>Unknown</em>"
+          }</li>
+          <li><strong>Site version:</strong> ${
+            version || "<em>Unknown</em>"
+          }</li>
         </ul>`;
           elasticData.forEach((item: any) => {
             page_url_pathname_lang =
-              page_url_pathname_lang ?? item._source.page_url_pathname_lang;
+              page_url_pathname_lang || item._source.page_url_pathname_lang;
             location_city_names_en =
-              location_city_names_en ?? item._source.location_city_names_en;
+              location_city_names_en || item._source.location_city_names_en;
             user_agent_os_name =
-              user_agent_os_name ?? item._source.user_agent_os_name;
+              user_agent_os_name || item._source.user_agent_os_name;
             user_agent_browser_name =
-              user_agent_browser_name ?? item._source.user_agent_browser_name;
-            version = version ?? item._source.version;
+              user_agent_browser_name || item._source.user_agent_browser_name;
+            version = version || item._source.version;
             original_utm_source =
-              original_utm_source ?? item._source.original_utm_source;
+              original_utm_source || item._source.original_utm_source;
             original_utm_medium =
-              original_utm_medium ?? item._source.original_utm_medium;
+              original_utm_medium || item._source.original_utm_medium;
             original_utm_campaign =
-              original_utm_campaign ?? item._source.original_utm_campaign;
+              original_utm_campaign || item._source.original_utm_campaign;
             location_subdivisions_0_names_en =
-              location_subdivisions_0_names_en ??
+              location_subdivisions_0_names_en ||
               item._source.location_subdivisions_0_names_en;
           });
           if (
-            original_utm_source !== "<em>Unknown</em>" ||
-            original_utm_medium !== "<em>Unknown</em>" ||
-            original_utm_campaign !== "<em>Unknown</em>"
+            original_utm_source ||
+            original_utm_medium ||
+            original_utm_campaign
           ) {
             let updateData: any = {};
             if (original_utm_source !== "<em>Unknown</em>")
@@ -296,6 +307,12 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
               updateData[CustomFields.UTM_MEDIUM] = original_utm_medium;
             if (original_utm_campaign !== "<em>Unknown</em>")
               updateData[CustomFields.UTM_CAMPAIGN] = original_utm_campaign;
+            updateData[CustomFields.ELASTICSEARCH_USER_ID] = data.userId;
+            updateData[CustomFields.FIREBASE_RECORD_ID] = data.id;
+            updateData[CustomFields.REFERRER_SOURCE] =
+              original_utm_medium === "online_advertising"
+                ? "Online ads"
+                : "Direct";
             await updateLead(lead.data.id, updateData);
           }
           await addNote(text, lead.data.id);

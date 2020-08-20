@@ -6,6 +6,9 @@ import {
   firestore,
 } from "firebase-admin";
 import { config } from "dotenv";
+import ElasticSearch from "@elastic/elasticsearch";
+import AWS, { ElastiCache } from "aws-sdk";
+const createAwsElasticsearchConnector = require("aws-elasticsearch-connector");
 config();
 
 const FIREBASE_SERVICE_ACCOUNT_KEY: ServiceAccount = JSON.parse(
@@ -24,6 +27,16 @@ initializeApp({
   databaseURL: FIREBASE_DATABASE_URL,
 });
 const subscribers = firestore().collection("subscribers-v2");
+
+const awsConfig = new AWS.Config({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+});
+const client = new ElasticSearch.Client({
+  ...createAwsElasticsearchConnector(awsConfig),
+  node: `https://${process.env.AWS_ELASTIC_HOST}`,
+});
 
 enum CustomFields {
   ELASTICSEARCH_USER_ID = "57bdc336b1fb99fc9447c89cb21870fe4a032291",
@@ -67,10 +80,30 @@ export const addPerson = async (
   return data;
 };
 
-export const addLead = async (lead: Lead) => {
-  const { data } = await api.post(`/deals?api_token=${API_KEY}`, lead);
-  console.log("Added lead", lead.title);
+export const addNote = async (
+  content: string,
+  deal_id: string
+): Promise<{
+  data: {
+    id: number;
+  };
+}> => {
+  const { data } = await api.post(`/notes?api_token=${API_KEY}`, {
+    content,
+    deal_id,
+  });
+  console.log("Added note", deal_id);
   return data;
+};
+
+export const addLead = async (lead: Lead) => {
+  try {
+    const { data } = await api.post(`/deals?api_token=${API_KEY}`, lead);
+    console.log("Added lead", lead.title);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const sent: string[] = [];
@@ -102,7 +135,7 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
       email: [data.email],
       phone: [data.phone],
     });
-    await addLead({
+    const lead = await addLead({
       person_id: person.data.id,
       title: `${capitalize(data.name.split(" ")[0])}'s${
         data.numberOfRooms ? ` ${data.numberOfRooms}-room` : ""
@@ -111,46 +144,70 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
           ? `${capitalize(data.locationName.split(" ")[0])} apartment`
           : "apartment"
       }`,
-      note: `<h2>Firebase responses</h2><ul>${Object.keys(data)
-        .map(
-          (key) =>
-            `<li><strong>${capitalize(
-              key.replace(/([A-Z])/g, " $1")
-            )}</strong>: ${
-              typeof data[key] === "object"
-                ? data[key]._seconds
-                  ? new Date(data[key]._seconds * 1000).toLocaleString(
-                      "en-CH",
-                      { timeZone: "Europe/Zurich" }
-                    )
-                  : `<code>${JSON.stringify(data[key])}</code>`
-                : data[key]
-            }</li>`
-        )
-        .join("")}</ul>`,
-      "239af2d22f89a6cce027a246134066f69bbd80ad": !isNaN(parseInt(data.budget))
-        ? parseInt(data.budget)
-        : undefined,
-      "239af2d22f89a6cce027a246134066f69bbd80ad_currency": !isNaN(
-        parseInt(data.budget)
-      )
-        ? "CHF"
-        : undefined,
     });
+    if (lead) {
+      //
+    }
   }
 };
 
 const migratePreviousLeads = async () => {
+  console.log("Migrating previous leads...");
   for await (const item of [subscribers]) {
     const docs = await item.get();
     const ids: string[] = [];
     docs.forEach((doc) => ids.push(doc.id));
     for await (const id of ids) {
       const data = (await item.doc(id).get()).data();
-      return console.log(JSON.stringify(data));
+      if (data?.userId) {
+        const elasticData = await getElasticSearchData(data.userId);
+        if (elasticData?._source.page_url_pathname_lang)
+          data.language = elasticData._source.page_url_pathname_lang;
+        if (elasticData?._source.location_subdivisions_0_names_en)
+          data.subdivision =
+            elasticData._source.location_subdivisions_0_names_en;
+        if (elasticData?._source.location_country_names_en)
+          data.country = elasticData._source.location_country_names_en;
+        if (elasticData?._source.location_city_names_en)
+          data.city = elasticData._source.location_city_names_en;
+        if (elasticData?._source.user_agent_os_name)
+          data.os = elasticData._source.user_agent_os_name;
+        if (elasticData?._source.user_agent_browser_name)
+          data.browser = elasticData._source.user_agent_browser_name;
+      }
+      console.log(JSON.stringify(data));
       await firebaseToPipedrive(data);
     }
   }
+};
+
+const getElasticSearchData = async (
+  userId: string
+): Promise<
+  | {
+      _source: {
+        page_url_pathname_lang?: string;
+        location_subdivisions_0_names_en?: string;
+        location_country_names_en?: string;
+        location_city_names_en?: string;
+        user_agent_os_name?: string;
+        user_agent_browser_name?: string;
+      };
+    }
+  | undefined
+> => {
+  const data = await client.search({
+    index: "analytics-website",
+    size: 1,
+    body: {
+      sort: "date",
+      query: {
+        match: { user_id: userId },
+      },
+    },
+  });
+  const items = (((data || {}).body || {}).hits || {}).hits || [];
+  if (items.length) return items[0];
 };
 
 migratePreviousLeads();

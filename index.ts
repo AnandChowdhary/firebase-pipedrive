@@ -40,7 +40,7 @@ interface Lead {
     currency: string;
   };
   expected_close_date?: string;
-  "Potential value"?: {
+  potential_value?: {
     amount: number;
     currency: string;
   };
@@ -118,12 +118,17 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
               key.replace(/([A-Z])/g, " $1")
             )}</strong>: ${
               typeof data[key] === "object"
-                ? `<code>${JSON.stringify(data[key])}</code>`
+                ? data[key]._seconds
+                  ? new Date(data[key]._seconds * 1000).toLocaleString(
+                      "en-CH",
+                      { timeZone: "Europe/Zurich" }
+                    )
+                  : `<code>${JSON.stringify(data[key])}</code>`
                 : data[key]
             }</li>`
         )
         .join("")}</ul>`,
-      "Potential value": !isNaN(parseInt(data.budget))
+      potential_value: !isNaN(parseInt(data.budget))
         ? {
             amount: parseInt(data.budget),
             currency: "CHF",

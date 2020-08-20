@@ -174,11 +174,11 @@ const firebaseToPipedrive = async (
           .join("")}</ul>`,
         lead.data.id
       );
-      if (Array.isArray(data.floorPlanUrls) && data.floorPlanUrls.length) {
+      if (Array.isArray(data.styles) && data.styles.length) {
         const floorPlanNote = `<p><strong>Onboarding styles</strong></p>
         ${
-          Array.isArray(data.floorPlanUrls)
-            ? data.floorPlanUrls
+          Array.isArray(data.styles)
+            ? data.styles
                 .map(
                   (
                     img: string
@@ -332,7 +332,6 @@ const firebaseToPipedrive = async (
           if (original_utm_campaign !== "<em>Unknown</em>")
             updateData[CustomFields.UTM_CAMPAIGN] = original_utm_campaign;
           updateData[CustomFields.ELASTICSEARCH_USER_ID] = data.userId;
-          console.log(JSON.stringify(data));
           updateData[CustomFields.FIREBASE_RECORD_ID] = firebaseId;
           updateData[CustomFields.REFERRER_SOURCE] =
             original_utm_medium === "online_advertising"

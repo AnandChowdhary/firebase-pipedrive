@@ -40,10 +40,8 @@ interface Lead {
     currency: string;
   };
   expected_close_date?: string;
-  "239af2d22f89a6cce027a246134066f69bbd80ad"?: {
-    amount: number;
-    currency: string;
-  };
+  "239af2d22f89a6cce027a246134066f69bbd80ad"?: number;
+  "239af2d22f89a6cce027a246134066f69bbd80ad_currency"?: string;
 }
 
 const capitalize = (str: string) =>
@@ -73,21 +71,14 @@ const migrateLiveLeads = async () => {
     const docs = await item.get();
     docs.forEach((doc) => sent.push(doc.id));
   }
+  console.log("Listening...");
   [subscribers].forEach((item) => {
     item.onSnapshot((snapshot) => {
       snapshot.docs.forEach((doc) => {
         const data = doc.data();
         if (doc.id && !sent.includes(doc.id) && data.email && !data.dev) {
           sent.push(doc.id);
-          console.log("Sending", doc.id);
-          // const person = await addPerson({
-          //   name: "Anand Chowdhary",
-          //   email: ["anand@koj.co"],
-          // });
-          // await addLead({
-          //   person_id: person.data.id,
-          //   title: "Anand Chowdhary's Bern apartment",
-          // });
+          firebaseToPipedrive(data);
         }
       });
     });
@@ -129,10 +120,12 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
         )
         .join("")}</ul>`,
       "239af2d22f89a6cce027a246134066f69bbd80ad": !isNaN(parseInt(data.budget))
-        ? {
-            amount: parseInt(data.budget),
-            currency: "CHF",
-          }
+        ? parseInt(data.budget)
+        : undefined,
+      "239af2d22f89a6cce027a246134066f69bbd80ad_currency": !isNaN(
+        parseInt(data.budget)
+      )
+        ? "CHF"
         : undefined,
     });
   }
@@ -150,6 +143,4 @@ const migratePreviousLeads = async () => {
   }
 };
 
-(async () => {
-  await migratePreviousLeads();
-})();
+migrateLiveLeads();

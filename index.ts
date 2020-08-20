@@ -224,6 +224,26 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
         let original_utm_medium = "<em>Unknown</em>";
         let original_utm_campaign = "<em>Unknown</em>";
         let location_subdivisions_0_names_en = "<em>Unknown</em>";
+        elasticData.forEach((record: any) => {
+          page_url_pathname_lang =
+            page_url_pathname_lang ?? record?._source.page_url_pathname_lang;
+          location_city_names_en =
+            location_city_names_en ?? record?._source.location_city_names_en;
+          user_agent_os_name =
+            user_agent_os_name ?? record?._source.user_agent_os_name;
+          user_agent_browser_name =
+            user_agent_browser_name ?? record?._source.user_agent_browser_name;
+          version = version ?? record?._source.version;
+          original_utm_source =
+            original_utm_source ?? record?._source.original_utm_source;
+          original_utm_medium =
+            original_utm_medium ?? record?._source.original_utm_medium;
+          original_utm_campaign =
+            original_utm_campaign ?? record?._source.original_utm_campaign;
+          location_subdivisions_0_names_en =
+            location_subdivisions_0_names_en ??
+            record?._source.location_subdivisions_0_names_en;
+        });
         if (
           page_url_pathname_lang !== "<em>Unknown</em>" ||
           location_city_names_en !== "<em>Unknown</em>" ||
@@ -289,7 +309,7 @@ const migratePreviousLeads = async () => {
   console.log("Migrating previous leads...");
   for await (const item of [subscribers]) {
     const docs = await item.get();
-    const ids: string[] = [];
+    const ids: string[] = ["qPK8qEdVmfwPRZvWrdJn"];
     docs.forEach((doc) => ids.push(doc.id));
     for await (const id of ids) {
       const data = (await item.doc(id).get()).data();

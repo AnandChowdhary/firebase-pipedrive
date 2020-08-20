@@ -38,6 +38,9 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "@elastic/elasticsearch": "^7.9.0",
+    "aws-elasticsearch-connector": "^9.0.0",
+    "aws-sdk": "^2.737.0",
     "axios": "^0.19.2",
     "firebase-admin": "^9.1.0"
   }

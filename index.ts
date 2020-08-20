@@ -25,6 +25,16 @@ initializeApp({
 });
 const subscribers = firestore().collection("subscribers-v2");
 
+enum CustomFields {
+  ELASTICSEARCH_USER_ID = "57bdc336b1fb99fc9447c89cb21870fe4a032291",
+  FIREBASE_RECORD_ID = "b4b22c726c33517f3810d338d77c567c8b358da4",
+  REFERRER_SOURCE = "2d708892b623a93d35eb649f4c730f61107c3125",
+  REFERRER_VALUE = "2802445329546a203d238d3620827551ebc53105",
+  UTM_CAMPAIGN = "91775aa4b6296a3582586c38955b837166b1dfb1",
+  UTM_MEDIUM = "2359203a503209c865119c28dac11de5c3ebf251",
+  UTM_SOURCE = "a9d761a6c3cdba4bfa305c5f41c396ef1be3872b",
+}
+
 interface Person {
   name: string;
   email: string[];
@@ -35,10 +45,8 @@ interface Lead {
   title: string;
   note?: string;
   person_id?: number;
-  value?: {
-    amount: number;
-    currency: string;
-  };
+  value?: string;
+  currency?: string;
   expected_close_date?: string;
   "239af2d22f89a6cce027a246134066f69bbd80ad"?: number;
   "239af2d22f89a6cce027a246134066f69bbd80ad_currency"?: string;
@@ -60,7 +68,7 @@ export const addPerson = async (
 };
 
 export const addLead = async (lead: Lead) => {
-  const { data } = await api.post(`/leads?api_token=${API_KEY}`, lead);
+  const { data } = await api.post(`/deals?api_token=${API_KEY}`, lead);
   console.log("Added lead", lead.title);
   return data;
 };
@@ -78,6 +86,7 @@ const migrateLiveLeads = async () => {
         const data = doc.data();
         if (doc.id && !sent.includes(doc.id) && data.email && !data.dev) {
           sent.push(doc.id);
+          return console.log(JSON.stringify(data));
           firebaseToPipedrive(data);
         }
       });
@@ -138,9 +147,11 @@ const migratePreviousLeads = async () => {
     docs.forEach((doc) => ids.push(doc.id));
     for await (const id of ids) {
       const data = (await item.doc(id).get()).data();
+      return console.log(JSON.stringify(data));
       await firebaseToPipedrive(data);
     }
   }
 };
 
-migrateLiveLeads();
+migratePreviousLeads();
+// migrateLiveLeads();

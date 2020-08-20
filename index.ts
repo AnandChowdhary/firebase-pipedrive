@@ -171,6 +171,24 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
           .join("")}</ul>`,
         lead.data.id
       );
+      if (Array.isArray(data.floorPlanUrls) && data.floorPlanUrls.length) {
+        const floorPlanNote = `<p><strong>Onboarding styles</strong></p>
+        ${
+          Array.isArray(data.floorPlanUrls)
+            ? data.floorPlanUrls.map(
+                (
+                  img: string
+                ) => `<a href="${`https://kojcdn.com/v1593890001/website-v2/${img}`}" target="_blank" class="d-inline-block">
+        <img 
+          alt=""
+          class="big-uploaded-image"
+          src="${`https://kojcdn.com/c_scale,w_200/v1593890001/website-v2/${img}`}" />
+      </a>`
+              )
+            : "<em>No styles selected</em>"
+        }`;
+        await addNote(floorPlanNote, lead.data.id);
+      }
       if (Array.isArray(data.photosUrls) && data.photosUrls.length) {
         const photoNote = `<p><strong>Apartment photos</strong></p>
         ${
@@ -178,13 +196,13 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
             ? data.photoUrls.map(
                 (
                   img: string
-                ) => `<a href=${img} target="_blank" class="d-inline-block">
+                ) => `<a href="${img}" target="_blank" class="d-inline-block">
         <img
           alt=""
           class="big-uploaded-image"
-          src=${img
+          src="${img
             .replace("https://kojcdn.com/", "https://kojcdn.com/w_200,c_fill/")
-            .replace(".pdf", ".png")} />
+            .replace(".pdf", ".png")}" />
       </a>`
               )
             : "<em>No apartment photos uploaded</em>"
@@ -198,13 +216,13 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
             ? data.floorPlanUrls.map(
                 (
                   img: string
-                ) => `<a href=${img} target="_blank" class="d-inline-block">
+                ) => `<a href="${img}" target="_blank" class="d-inline-block">
         <img 
           alt=""
           class="big-uploaded-image"
-          src=${img
+          src="${img
             .replace("https://kojcdn.com/", "https://kojcdn.com/w_800,c_fill/")
-            .replace(".pdf", ".png")} />
+            .replace(".pdf", ".png")}" />
       </a>`
               )
             : "<em>No floor plan photos uploaded</em>"

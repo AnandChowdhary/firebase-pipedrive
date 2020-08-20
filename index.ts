@@ -124,14 +124,17 @@ const migrateLiveLeads = async () => {
         if (doc.id && !sent.includes(doc.id) && data.email && !data.dev) {
           sent.push(doc.id);
           return console.log(JSON.stringify(data));
-          firebaseToPipedrive(data);
+          firebaseToPipedrive(data, doc.id);
         }
       });
     });
   });
 };
 
-const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
+const firebaseToPipedrive = async (
+  data?: firestore.DocumentData,
+  firebaseId?: string
+) => {
   if (data && data.email && !data.dev) {
     console.log("Sending record for", data.email);
     const person = await addPerson({
@@ -175,16 +178,18 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
         const floorPlanNote = `<p><strong>Onboarding styles</strong></p>
         ${
           Array.isArray(data.floorPlanUrls)
-            ? data.floorPlanUrls.map(
-                (
-                  img: string
-                ) => `<a href="${`https://kojcdn.com/v1593890001/website-v2/${img}`}" target="_blank" class="d-inline-block">
+            ? data.floorPlanUrls
+                .map(
+                  (
+                    img: string
+                  ) => `<a href="${`https://kojcdn.com/v1593890001/website-v2/${img}`}" target="_blank" class="d-inline-block">
         <img 
           alt=""
           class="big-uploaded-image"
-          src="${`https://kojcdn.com/c_scale,w_200/v1593890001/website-v2/${img}`}" />
+          src="${`https://kojcdn.com/w_200,h_150,c_fill/v1593890001/website-v2/${img}`}" />
       </a>`
-              )
+                )
+                .join("")
             : "<em>No styles selected</em>"
         }`;
         await addNote(floorPlanNote, lead.data.id);
@@ -193,18 +198,23 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
         const photoNote = `<p><strong>Apartment photos</strong></p>
         ${
           Array.isArray(data.photoUrls)
-            ? data.photoUrls.map(
-                (
-                  img: string
-                ) => `<a href="${img}" target="_blank" class="d-inline-block">
+            ? data.photoUrls
+                .map(
+                  (
+                    img: string
+                  ) => `<a href="${img}" target="_blank" class="d-inline-block">
         <img
           alt=""
           class="big-uploaded-image"
           src="${img
-            .replace("https://kojcdn.com/", "https://kojcdn.com/w_200,c_fill/")
+            .replace(
+              "https://kojcdn.com/",
+              "https://kojcdn.com/w_200,h_150,c_fill/"
+            )
             .replace(".pdf", ".png")}" />
       </a>`
-              )
+                )
+                .join("")
             : "<em>No apartment photos uploaded</em>"
         }`;
         await addNote(photoNote, lead.data.id);
@@ -213,10 +223,11 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
         const floorPlanNote = `<p><strong>Floor plan photos</strong></p>
         ${
           Array.isArray(data.floorPlanUrls)
-            ? data.floorPlanUrls.map(
-                (
-                  img: string
-                ) => `<a href="${img}" target="_blank" class="d-inline-block">
+            ? data.floorPlanUrls
+                .map(
+                  (
+                    img: string
+                  ) => `<a href="${img}" target="_blank" class="d-inline-block">
         <img 
           alt=""
           class="big-uploaded-image"
@@ -224,7 +235,8 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
             .replace("https://kojcdn.com/", "https://kojcdn.com/w_800,c_fill/")
             .replace(".pdf", ".png")}" />
       </a>`
-              )
+                )
+                .join("")
             : "<em>No floor plan photos uploaded</em>"
         }`;
         await addNote(floorPlanNote, lead.data.id);
@@ -320,11 +332,12 @@ const firebaseToPipedrive = async (data?: firestore.DocumentData) => {
           if (original_utm_campaign !== "<em>Unknown</em>")
             updateData[CustomFields.UTM_CAMPAIGN] = original_utm_campaign;
           updateData[CustomFields.ELASTICSEARCH_USER_ID] = data.userId;
-          updateData[CustomFields.FIREBASE_RECORD_ID] = data.id;
+          console.log(JSON.stringify(data));
+          updateData[CustomFields.FIREBASE_RECORD_ID] = firebaseId;
           updateData[CustomFields.REFERRER_SOURCE] =
             original_utm_medium === "online_advertising"
               ? "Online ads"
-              : "Direct";
+              : "Organic";
           await updateLead(lead.data.id, updateData);
 
           await addNote(text, lead.data.id);
@@ -342,7 +355,7 @@ const migratePreviousLeads = async () => {
     docs.forEach((doc) => ids.push(doc.id));
     for await (const id of ids) {
       const data = (await item.doc(id).get()).data();
-      await firebaseToPipedrive(data);
+      await firebaseToPipedrive(data, id);
     }
   }
 };
@@ -362,4 +375,4 @@ const getElasticSearchData = async (userId: string) => {
   return (((data || {}).body || {}).hits || {}).hits || [];
 };
 
-migrateLiveLeads();
+migratePreviousLeads();

@@ -48,6 +48,7 @@ enum CustomFields {
   CORRESPONDING_LANGUAGE = "920a0bf973820c90cf4fe0b603c918c976b43c26",
   RENTAL_PERIOD = "75af5cfb9d97974ef58950f1bb61c3702f85275a",
   MONTHLY_BUDGET = "04a0826dfb0cad877b2c59f272f564165b9fcdb4",
+  MOVING_IN_DAY = "b651525abe76ac99182fe5915ca977b30b06fd9e",
 }
 
 interface Person {
@@ -343,6 +344,12 @@ const firebaseToPipedrive = async (
               : "Organic";
           updateData[CustomFields.RENTAL_PERIOD] = data.duration;
           updateData[CustomFields.MONTHLY_BUDGET] = data.budget;
+          if (
+            data.timeline.match(
+              /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
+            )
+          )
+            updateData[CustomFields.MOVING_IN_DAY] = data.timeline;
           updateData[`${CustomFields.MONTHLY_BUDGET}_currency`] = "CHF";
           await updateLead(lead.data.id, updateData);
           const personData: any = {};

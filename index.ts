@@ -410,4 +410,5 @@ const getElasticSearchData = async (userId: string) => {
   return (((data || {}).body || {}).hits || {}).hits || [];
 };
 
-migratePreviousLeads();
+if (process.env.MIGRATE_PREVIOUS_LEADS) migratePreviousLeads();
+else migrateLiveLeads();

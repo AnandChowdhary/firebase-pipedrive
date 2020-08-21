@@ -66,8 +66,22 @@ interface Lead {
   expected_close_date?: string;
 }
 
-const capitalize = (str: string) =>
-  str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+/**
+ * Capitalize the first letter of a string
+ */
+export const capitalizeFirstLetter = (string: string) =>
+  string.charAt(0).toUpperCase() + string.toLowerCase().slice(1);
+
+/**
+ * Capitalize the first letter of each word in a string
+ */
+export const capitalizeFirstAndLastLetter = (string: string) => {
+  const words = string.split(" ");
+  words[0] = capitalizeFirstLetter(words[0]);
+  words[words.length - 1] = capitalizeFirstLetter(words[words.length - 1]);
+  return words.join(" ");
+};
+
 const languageName = (key: string) => (key === "de" ? "German" : "English");
 
 export const addPerson = async (
@@ -145,17 +159,19 @@ const firebaseToPipedrive = async (
   if (data && data.email && !data.dev) {
     console.log("Sending record for", data.email);
     const person = await addPerson({
-      name: data.name,
-      email: [data.email],
+      name: capitalizeFirstAndLastLetter(data.name),
+      email: [data.email.toLowerCase()],
       phone: [data.phone],
     });
     const lead = await addLead({
       person_id: person.data.id,
-      title: `${capitalize(data.name.split(" ")[0])}'s${
+      title: `${capitalizeFirstLetter(data.name.split(" ")[0])}'s${
         data.numberOfRooms ? ` ${data.numberOfRooms}-room` : ""
       } ${
         data.locationName
-          ? `${capitalize(data.locationName.split(" ")[0])} apartment`
+          ? `${capitalizeFirstLetter(
+              data.locationName.split(" ")[0]
+            )} apartment`
           : "apartment"
       }`,
       value: ((data.budget || 0) * 12 * (data.duration || 1)).toString(),
@@ -166,7 +182,7 @@ const firebaseToPipedrive = async (
         `<p><strong>Onboarding responses</strong></p><ul>${Object.keys(data)
           .map(
             (key) =>
-              `<li><strong>${capitalize(
+              `<li><strong>${capitalizeFirstLetter(
                 key.replace(/([A-Z])/g, " $1")
               )}:</strong> ${
                 typeof data[key] === "object"
@@ -391,4 +407,4 @@ const getElasticSearchData = async (userId: string) => {
   return (((data || {}).body || {}).hits || {}).hits || [];
 };
 
-migrateLiveLeads();
+migratePreviousLeads();

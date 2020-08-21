@@ -342,10 +342,10 @@ const firebaseToPipedrive = async (
             original_utm_medium === "online_advertising"
               ? "Online ads"
               : "Organic";
-          updateData[CustomFields.RENTAL_PERIOD] = data.duration;
+          updateData[CustomFields.RENTAL_PERIOD] = data.period;
           updateData[CustomFields.MONTHLY_BUDGET] = data.budget;
           if (
-            data.timeline.match(
+            (data.timeline || "").match(
               /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
             )
           )
@@ -370,7 +370,7 @@ const migratePreviousLeads = async () => {
     const docs = await item.get();
     const ids: string[] = [];
     docs.forEach((doc) => ids.push(doc.id));
-    for await (const id of ids) {
+    for await (const id of ids.reverse()) {
       const data = (await item.doc(id).get()).data();
       await firebaseToPipedrive(data, id);
     }

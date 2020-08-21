@@ -131,7 +131,6 @@ const migrateLiveLeads = async () => {
         const data = doc.data();
         if (doc.id && !sent.includes(doc.id) && data.email && !data.dev) {
           sent.push(doc.id);
-          return console.log(JSON.stringify(data));
           firebaseToPipedrive(data, doc.id);
         }
       });
@@ -392,4 +391,4 @@ const getElasticSearchData = async (userId: string) => {
   return (((data || {}).body || {}).hits || {}).hits || [];
 };
 
-migratePreviousLeads();
+migrateLiveLeads();

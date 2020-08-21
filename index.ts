@@ -7,6 +7,7 @@ import {
 } from "firebase-admin";
 import { config } from "dotenv";
 import ElasticSearch from "@elastic/elasticsearch";
+import Phone from "awesome-phonenumber";
 import AWS from "aws-sdk";
 const createAwsElasticsearchConnector = require("aws-elasticsearch-connector");
 config();
@@ -161,7 +162,9 @@ const firebaseToPipedrive = async (
     const person = await addPerson({
       name: capitalizeFirstAndLastLetter(data.name),
       email: [data.email.toLowerCase()],
-      phone: [data.phone],
+      phone: data.phone
+        ? [new Phone(data.phone, "CH").getNumber("international")]
+        : undefined,
     });
     const lead = await addLead({
       person_id: person.data.id,

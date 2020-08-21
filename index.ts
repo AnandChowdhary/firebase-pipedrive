@@ -7,7 +7,7 @@ import {
 } from "firebase-admin";
 import { config } from "dotenv";
 import ElasticSearch from "@elastic/elasticsearch";
-import AWS, { ElastiCache } from "aws-sdk";
+import AWS from "aws-sdk";
 const createAwsElasticsearchConnector = require("aws-elasticsearch-connector");
 config();
 
@@ -45,6 +45,7 @@ enum CustomFields {
   UTM_CAMPAIGN = "91775aa4b6296a3582586c38955b837166b1dfb1",
   UTM_MEDIUM = "2359203a503209c865119c28dac11de5c3ebf251",
   UTM_SOURCE = "a9d761a6c3cdba4bfa305c5f41c396ef1be3872b",
+  CORRESPONDING_LANGUAGE = "920a0bf973820c90cf4fe0b603c918c976b43c26",
 }
 
 interface Person {
@@ -66,6 +67,7 @@ interface Lead {
 
 const capitalize = (str: string) =>
   str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+const languageName = (key: string) => (key === "de" ? "German" : "English");
 
 export const addPerson = async (
   person: Person
@@ -108,6 +110,11 @@ export const addLead = async (lead: Lead) => {
 export const updateLead = async (id: string, data: any) => {
   await api.put(`/deals/${id}?api_token=${API_KEY}`, data);
   console.log("Updated lead", id);
+};
+
+export const updatePerson = async (id: number, data: any) => {
+  await api.put(`/persons/${id}?api_token=${API_KEY}`, data);
+  console.log("Updated person", id);
 };
 
 const sent: string[] = [];
@@ -297,9 +304,6 @@ const firebaseToPipedrive = async (
           <li><strong>Browser:</strong> ${
             user_agent_browser_name || "<em>Unknown</em>"
           }</li>
-          <li><strong>Site language:</strong> ${
-            page_url_pathname_lang || "<em>Unknown</em>"
-          }</li>
           <li><strong>Site version:</strong> ${
             version || "<em>Unknown</em>"
           }</li>
@@ -338,7 +342,11 @@ const firebaseToPipedrive = async (
               ? "Online ads"
               : "Organic";
           await updateLead(lead.data.id, updateData);
-
+          const personData: any = {};
+          personData[CustomFields.CORRESPONDING_LANGUAGE] = languageName(
+            (page_url_pathname_lang || "en-ch").split("-")[0]
+          );
+          await updatePerson(person.data.id, personData);
           await addNote(text, lead.data.id);
         }
       }

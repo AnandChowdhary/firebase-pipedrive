@@ -46,6 +46,8 @@ enum CustomFields {
   UTM_MEDIUM = "2359203a503209c865119c28dac11de5c3ebf251",
   UTM_SOURCE = "a9d761a6c3cdba4bfa305c5f41c396ef1be3872b",
   CORRESPONDING_LANGUAGE = "920a0bf973820c90cf4fe0b603c918c976b43c26",
+  RENTAL_PERIOD = "75af5cfb9d97974ef58950f1bb61c3702f85275a",
+  MONTHLY_BUDGET = "04a0826dfb0cad877b2c59f272f564165b9fcdb4",
 }
 
 interface Person {
@@ -61,8 +63,6 @@ interface Lead {
   value?: string;
   currency?: string;
   expected_close_date?: string;
-  "239af2d22f89a6cce027a246134066f69bbd80ad"?: number;
-  "239af2d22f89a6cce027a246134066f69bbd80ad_currency"?: string;
 }
 
 const capitalize = (str: string) =>
@@ -341,6 +341,9 @@ const firebaseToPipedrive = async (
             original_utm_medium === "online_advertising"
               ? "Online ads"
               : "Organic";
+          updateData[CustomFields.RENTAL_PERIOD] = data.duration;
+          updateData[CustomFields.MONTHLY_BUDGET] = data.budget;
+          updateData[`${CustomFields.MONTHLY_BUDGET}_currency`] = "CHF";
           await updateLead(lead.data.id, updateData);
           const personData: any = {};
           personData[CustomFields.CORRESPONDING_LANGUAGE] = languageName(

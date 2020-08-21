@@ -158,7 +158,7 @@ const firebaseToPipedrive = async (
           ? `${capitalize(data.locationName.split(" ")[0])} apartment`
           : "apartment"
       }`,
-      value: data.budget || 0,
+      value: ((data.budget || 0) * 12 * (data.duration || 1)).toString(),
       currency: "CHF",
     });
     if (lead?.data?.id) {

@@ -177,7 +177,7 @@ const firebaseToPipedrive = async (
             )} apartment`
           : "apartment"
       }`,
-      value: ((data.budget || 0) * 12 * (data.duration || 1)).toString(),
+      value: ((data.budget || 0) * 12 * (data.period || 1)).toString(),
       currency: "CHF",
     });
     if (lead?.data?.id) {
@@ -360,7 +360,7 @@ const firebaseToPipedrive = async (
             original_utm_medium === "online_advertising"
               ? "Online ads"
               : "Organic";
-          updateData[CustomFields.RENTAL_PERIOD] = data.period;
+          updateData[CustomFields.RENTAL_PERIOD] = data.period * 12;
           updateData[CustomFields.MONTHLY_BUDGET] = data.budget;
           if (
             (data.timeline || "").match(

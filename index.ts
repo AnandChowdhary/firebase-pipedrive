@@ -9,6 +9,7 @@ import { config } from "dotenv";
 import ElasticSearch from "@elastic/elasticsearch";
 import Phone from "awesome-phonenumber";
 import AWS from "aws-sdk";
+import { Client, PlaceInputType } from "@googlemaps/google-maps-services-js";
 const createAwsElasticsearchConnector = require("aws-elasticsearch-connector");
 config();
 
@@ -38,6 +39,8 @@ const client = new ElasticSearch.Client({
   ...createAwsElasticsearchConnector(awsConfig),
   node: `https://${process.env.AWS_ELASTIC_HOST}`,
 });
+
+const maps = new Client();
 
 enum CustomFields {
   ELASTICSEARCH_USER_ID = "57bdc336b1fb99fc9447c89cb21870fe4a032291",
@@ -132,6 +135,19 @@ export const updateLead = async (id: string, data: any) => {
 export const updatePerson = async (id: number, data: any) => {
   await api.put(`/persons/${id}?api_token=${API_KEY}`, data);
   console.log("Updated person", id);
+};
+
+const getMapsData = async (location: string) => {
+  console.log("Fetching Google Maps", location);
+  return (
+    await maps.findPlaceFromText({
+      params: {
+        key: process.env.MAPS_API_KEY ?? "",
+        input: location,
+        inputtype: PlaceInputType.phoneNumber,
+      },
+    })
+  ).data.candidates[0];
 };
 
 const sent: string[] = [];
@@ -356,6 +372,11 @@ const firebaseToPipedrive = async (
           if (original_utm_campaign !== "<em>Unknown</em>")
             updateData[CustomFields.UTM_CAMPAIGN] = original_utm_campaign;
           updateData[CustomFields.ELASTICSEARCH_USER_ID] = data.userId;
+          if (data.locationName) {
+            const mapsDetails = await getMapsData(data.locationName);
+            updateData[CustomFields.LOCATION] = mapsDetails.formatted_address;
+            updateData[`${CustomFields.LOCATION}_geocoded`] = mapsDetails;
+          }
           updateData[CustomFields.FIREBASE_RECORD_ID] = firebaseId;
           updateData[CustomFields.REFERRER_SOURCE] =
             original_utm_medium === "online_advertising"

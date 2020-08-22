@@ -139,7 +139,7 @@ export const updatePerson = async (id: number, data: any) => {
 
 const getMapsData = async (location: string) => {
   console.log("Fetching Google Maps", location);
-  const { place_id } = (
+  const details = (
     await maps.findPlaceFromText({
       params: {
         key: process.env.MAPS_API_KEY ?? "",
@@ -148,12 +148,12 @@ const getMapsData = async (location: string) => {
       },
     })
   ).data.candidates[0];
-  if (place_id)
+  if (details?.place_id)
     return (
       await maps.placeDetails({
         params: {
           key: process.env.MAPS_API_KEY ?? "",
-          place_id,
+          place_id: details.place_id,
         },
       })
     ).data.result;

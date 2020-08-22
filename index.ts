@@ -144,7 +144,7 @@ const getMapsData = async (location: string) => {
       params: {
         key: process.env.MAPS_API_KEY ?? "",
         input: location,
-        inputtype: PlaceInputType.phoneNumber,
+        inputtype: PlaceInputType.textQuery,
       },
     })
   ).data.candidates[0];
@@ -438,3 +438,10 @@ const getElasticSearchData = async (userId: string) => {
 
 // if (process.env.MIGRATE_PREVIOUS_LEADS) migratePreviousLeads();
 // else migrateLiveLeads();
+(async () => {
+  try {
+    console.log((await getMapsData("Oswald Labs New Delhi")).formatted_address);
+  } catch (error) {
+    console.log(error);
+  }
+})();

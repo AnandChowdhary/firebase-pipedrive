@@ -400,6 +400,10 @@ const firebaseToPipedrive = async (
           await addNote(text, lead.data.id);
         }
       }
+      await addNote(
+        `Lead questionnaire: https://koj.co/en-ch/admin/leads/${lead.data.id}`,
+        lead.data.id
+      );
     }
   }
 };
@@ -432,5 +436,5 @@ const getElasticSearchData = async (userId: string) => {
   return (((data || {}).body || {}).hits || {}).hits || [];
 };
 
-if (process.env.MIGRATE_PREVIOUS_LEADS) migratePreviousLeads();
-else migrateLiveLeads();
+// if (process.env.MIGRATE_PREVIOUS_LEADS) migratePreviousLeads();
+// else migrateLiveLeads();

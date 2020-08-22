@@ -139,7 +139,7 @@ export const updatePerson = async (id: number, data: any) => {
 
 const getMapsData = async (location: string) => {
   console.log("Fetching Google Maps", location);
-  return (
+  const { place_id } = (
     await maps.findPlaceFromText({
       params: {
         key: process.env.MAPS_API_KEY ?? "",
@@ -148,6 +148,15 @@ const getMapsData = async (location: string) => {
       },
     })
   ).data.candidates[0];
+  if (place_id)
+    return (
+      await maps.placeDetails({
+        params: {
+          key: process.env.MAPS_API_KEY ?? "",
+          place_id,
+        },
+      })
+    ).data.result;
 };
 
 const sent: string[] = [];
@@ -374,7 +383,7 @@ const firebaseToPipedrive = async (
           updateData[CustomFields.ELASTICSEARCH_USER_ID] = data.userId;
           if (data.locationName) {
             const mapsDetails = await getMapsData(data.locationName);
-            updateData[CustomFields.LOCATION] = mapsDetails.formatted_address;
+            updateData[CustomFields.LOCATION] = mapsDetails?.formatted_address;
             updateData[`${CustomFields.LOCATION}_geocoded`] = mapsDetails;
           }
           updateData[CustomFields.FIREBASE_RECORD_ID] = firebaseId;
@@ -440,7 +449,7 @@ const getElasticSearchData = async (userId: string) => {
 // else migrateLiveLeads();
 (async () => {
   try {
-    console.log((await getMapsData("Oswald Labs New Delhi")).formatted_address);
+    console.log(await getMapsData("Oswald Labs New Delhi"));
   } catch (error) {
     console.log(error);
   }

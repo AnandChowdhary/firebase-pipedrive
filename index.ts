@@ -445,12 +445,5 @@ const getElasticSearchData = async (userId: string) => {
   return (((data || {}).body || {}).hits || {}).hits || [];
 };
 
-// if (process.env.MIGRATE_PREVIOUS_LEADS) migratePreviousLeads();
-// else migrateLiveLeads();
-(async () => {
-  try {
-    console.log(await getMapsData("Oswald Labs New Delhi"));
-  } catch (error) {
-    console.log(error);
-  }
-})();
+if (process.env.MIGRATE_PREVIOUS_LEADS) migratePreviousLeads();
+else migrateLiveLeads();

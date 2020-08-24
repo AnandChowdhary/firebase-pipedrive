@@ -448,5 +448,24 @@ const getElasticSearchData = async (userId: string) => {
   return (((data || {}).body || {}).hits || {}).hits || [];
 };
 
-if (process.env.MIGRATE_PREVIOUS_LEADS) migratePreviousLeads();
-else migrateLiveLeads();
+// if (process.env.MIGRATE_PREVIOUS_LEADS) migratePreviousLeads();
+// else migrateLiveLeads();
+
+const updateRecords = async () => {
+  const { data } = await api.get(`/deals?api_token=${API_KEY}`);
+  const ids: string[] = data.data
+    .filter(
+      (item: any) =>
+        item.b651525abe76ac99182fe5915ca977b30b06fd9e &&
+        !item.expected_close_date
+    )
+    .map((item: any) => item.id);
+  for await (const id of ids) {
+    updateLead(id, {
+      expected_close_date: new Date(),
+    });
+  }
+};
+updateRecords();
+
+setInterval(updateRecords, 3600000);

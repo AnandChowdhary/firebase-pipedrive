@@ -294,7 +294,10 @@ const firebaseToPipedrive = async (
         await addNote(floorPlanNote, lead.data.id);
       }
       if (data?.userId) {
-        const elasticData = await getElasticSearchData(data.userId);
+        let elasticData: any = [];
+        try {
+          elasticData = await getElasticSearchData(data.userId);
+        } catch (error) {}
         let page_url_pathname_lang = "";
         let location_city_names_en = "";
         let user_agent_os_name = "";

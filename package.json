@@ -44,6 +44,7 @@
     "aws-elasticsearch-connector": "^9.0.0",
     "aws-sdk": "^2.737.0",
     "axios": "^0.19.2",
+    "dayjs": "^1.8.34",
     "firebase-admin": "^9.1.0"
   }
 }

@@ -6,6 +6,7 @@ import {
   firestore,
 } from "firebase-admin";
 import { config } from "dotenv";
+import dayjs from "dayjs";
 import ElasticSearch from "@elastic/elasticsearch";
 import Phone from "awesome-phonenumber";
 import AWS from "aws-sdk";
@@ -125,6 +126,10 @@ export const addLead = async (lead: Lead) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const getLead = async (id: string) => {
+  return (await api.get(`/deals/${id}?api_token=${API_KEY}`)) as any;
 };
 
 export const updateLead = async (id: string, data: any) => {
@@ -448,22 +453,25 @@ const getElasticSearchData = async (userId: string) => {
   return (((data || {}).body || {}).hits || {}).hits || [];
 };
 
-// if (process.env.MIGRATE_PREVIOUS_LEADS) migratePreviousLeads();
-// else migrateLiveLeads();
+if (process.env.MIGRATE_PREVIOUS_LEADS) migratePreviousLeads();
+else migrateLiveLeads();
 
 const updateRecords = async () => {
   const { data } = await api.get(`/deals?api_token=${API_KEY}`);
   const ids: string[] = data.data
     .filter(
       (item: any) =>
-        item.b651525abe76ac99182fe5915ca977b30b06fd9e &&
-        !item.expected_close_date
+        item[CustomFields.MOVING_IN_DAY] && !item.expected_close_date
     )
     .map((item: any) => item.id);
   for await (const id of ids) {
+    const item = await getLead(id);
     updateLead(id, {
-      expected_close_date: new Date(),
+      expected_close_date: dayjs(item[CustomFields.MOVING_IN_DAY]).format(
+        "YYYY-MM-DD"
+      ),
     });
+    console.log("Update lead with close date", id);
   }
 };
 updateRecords();

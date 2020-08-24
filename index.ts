@@ -134,6 +134,27 @@ export const addLead = async (lead: Lead) => {
   }
 };
 
+export const addSubscription = async (lead: {
+  deal_id: string;
+  currency: string;
+  cadence_type: "weekly" | "monthly" | "quarterly" | "yearly";
+  cycles_count: number;
+  cycle_amount: number;
+  start_date: string;
+  payments: Array<{ amount: number }>;
+}) => {
+  try {
+    const { data } = await api.post(
+      `/subscriptions/recurring?api_token=${API_KEY}`,
+      lead
+    );
+    console.log("Added subscription");
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getLead = async (id: string) => {
   return (await api.get(`/deals/${id}?api_token=${API_KEY}`)).data as any;
 };
@@ -479,13 +500,14 @@ else migrateLiveLeads();
 
 const updateRecords = async () => {
   const { data } = await api.get(`/deals?api_token=${API_KEY}`);
-  const ids: string[] = data.data
+
+  const closeDateIds: string[] = data.data
     .filter(
       (item: any) =>
         item[CustomFields.MOVING_IN_DAY] && !item.expected_close_date
     )
     .map((item: any) => item.id);
-  for await (const id of ids) {
+  for await (const id of closeDateIds) {
     const item = await getLead(id);
     updateLead(id, {
       expected_close_date: dayjs(item.data[CustomFields.MOVING_IN_DAY])
@@ -493,6 +515,29 @@ const updateRecords = async () => {
         .format("YYYY-MM-DD"),
     });
     console.log("Update lead with close date", id);
+  }
+
+  const subscriptionIds: string[] = data.data
+    .filter((item: any) => item.status === "won")
+    .map((item: any) => item.id);
+  for await (const id of subscriptionIds) {
+    const item = await getLead(id);
+    console.log(item.data);
+    if (
+      item.data[CustomFields.MONTHLY_BUDGET] &&
+      item.data[CustomFields.RENTAL_PERIOD] &&
+      item.data[CustomFields.MOVING_IN_DAY]
+    )
+      await addSubscription({
+        deal_id: id,
+        currency: "CHF",
+        cadence_type: "monthly",
+        cycles_count: item.data[CustomFields.RENTAL_PERIOD],
+        cycle_amount: item.data[CustomFields.MONTHLY_BUDGET],
+        start_date: item.data[CustomFields.MOVING_IN_DAY],
+        payments: [],
+      });
+    console.log("Update lead with subscription", id);
   }
 };
 updateRecords();

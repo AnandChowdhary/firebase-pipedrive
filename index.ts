@@ -56,6 +56,12 @@ enum CustomFields {
   MOVING_IN_DAY = "b651525abe76ac99182fe5915ca977b30b06fd9e",
   LOCATION = "71a278100c9c77860b8a3394dbc084c3492af995",
 }
+enum Labels {
+  ON_FIRE = 23,
+  COLD = 24,
+  MILD = 26,
+  HOT = 25,
+}
 
 interface Person {
   name: string;
@@ -415,6 +421,21 @@ const firebaseToPipedrive = async (
           );
           await updatePerson(person.data.id, personData);
           await addNote(text, lead.data.id);
+          let label = Labels.COLD;
+          if (data.phone) label = Labels.MILD;
+          if (
+            (Array.isArray(data.photosUrls) && data.photosUrls.length) ||
+            (Array.isArray(data.floorPlanUrls) && data.floorPlanUrls.length)
+          )
+            label = Labels.HOT;
+          if (
+            Array.isArray(data.photosUrls) &&
+            data.photosUrls.length &&
+            Array.isArray(data.floorPlanUrls) &&
+            data.floorPlanUrls.length
+          )
+            label = Labels.ON_FIRE;
+          await updateLead(lead.data.id, { label });
         }
       }
       await addNote(

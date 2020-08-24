@@ -260,8 +260,8 @@ const firebaseToPipedrive = async (
       if (Array.isArray(data.photosUrls) && data.photosUrls.length) {
         const photoNote = `<p><strong>Apartment photos</strong></p>
         ${
-          Array.isArray(data.photoUrls)
-            ? data.photoUrls
+          Array.isArray(data.photosUrls)
+            ? data.photosUrls
                 .map(
                   (
                     img: string

@@ -129,7 +129,7 @@ export const addLead = async (lead: Lead) => {
 };
 
 export const getLead = async (id: string) => {
-  return (await api.get(`/deals/${id}?api_token=${API_KEY}`)) as any;
+  return (await api.get(`/deals/${id}?api_token=${API_KEY}`)).data as any;
 };
 
 export const updateLead = async (id: string, data: any) => {
@@ -467,7 +467,7 @@ const updateRecords = async () => {
   for await (const id of ids) {
     const item = await getLead(id);
     updateLead(id, {
-      expected_close_date: dayjs(item[CustomFields.MOVING_IN_DAY])
+      expected_close_date: dayjs(item.data[CustomFields.MOVING_IN_DAY])
         .subtract(1, "month")
         .format("YYYY-MM-DD"),
     });

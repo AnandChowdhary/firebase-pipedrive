@@ -467,9 +467,9 @@ const updateRecords = async () => {
   for await (const id of ids) {
     const item = await getLead(id);
     updateLead(id, {
-      expected_close_date: dayjs(item[CustomFields.MOVING_IN_DAY]).format(
-        "YYYY-MM-DD"
-      ),
+      expected_close_date: dayjs(item[CustomFields.MOVING_IN_DAY])
+        .subtract(1, "month")
+        .format("YYYY-MM-DD"),
     });
     console.log("Update lead with close date", id);
   }

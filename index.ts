@@ -463,6 +463,18 @@ const firebaseToPipedrive = async (
         `Lead questionnaire: https://koj.co/en-ch/admin/leads/${lead.data.id}`,
         lead.data.id
       );
+      await axios.post(
+        "https://slack.com/api/chat.postMessage",
+        {
+          channel: "C016A9X32KG",
+          text: `Lead details on Pipedrive: https://koj.pipedrive.com/deal/${lead.data.id}`,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.SLACK_BOT_ACCESS_TOKEN}`,
+          },
+        }
+      );
     }
   }
 };

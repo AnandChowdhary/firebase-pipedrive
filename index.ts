@@ -236,7 +236,7 @@ const firebaseToPipedrive = async (
           : "apartment"
       }`,
       value: ((data.budget || 0) * 12 * (data.period || 1)).toString(),
-      currency: "CHF",
+      currency: "GI_",
     });
     if (lead?.data?.id) {
       await addNote(
@@ -434,7 +434,7 @@ const firebaseToPipedrive = async (
             )
           )
             updateData[CustomFields.MOVING_IN_DAY] = data.timeline;
-          updateData[`${CustomFields.MONTHLY_BUDGET}_currency`] = "CHF";
+          updateData[`${CustomFields.MONTHLY_BUDGET}_currency`] = "GI_";
           await updateLead(lead.data.id, updateData);
           const personData: any = {};
           personData[CustomFields.CORRESPONDING_LANGUAGE] = languageName(
@@ -542,7 +542,7 @@ const updateRecords = async () => {
     )
       await addSubscription({
         deal_id: id,
-        currency: "CHF",
+        currency: "GI_",
         cadence_type: "monthly",
         cycles_count: item.data[CustomFields.RENTAL_PERIOD],
         cycle_amount: item.data[CustomFields.MONTHLY_BUDGET],

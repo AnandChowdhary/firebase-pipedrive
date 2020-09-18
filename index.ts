@@ -236,7 +236,7 @@ const firebaseToPipedrive = async (
           : "apartment"
       }`,
       value: ((data.budget || 0) * 12 * (data.period || 1)).toString(),
-      currency: "GI_",
+      currency: "CHF",
     });
     if (lead?.data?.id) {
       await addNote(

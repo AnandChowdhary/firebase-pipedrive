@@ -8,5 +8,31 @@ allowed:
   - mit
   - cc0-1.0
   - unlicense
+  - 0bsd
 reviewed:
   npm:
+    - "@elastic/elasticsearch"
+    - color-convert
+    - faye-websocket
+    - google-gax
+    - hash-stream-validation
+    - http-parser-js
+    - ieee754
+    - jmespath
+    - lodash.camelcase
+    - lodash.includes
+    - lodash.isboolean
+    - lodash.isinteger
+    - lodash.isnumber
+    - lodash.isplainobject
+    - lodash.isstring
+    - lodash.once
+    - node-forge
+    - protobufjs
+    - readable-stream
+    - secure-json-parse
+    - string_decoder
+    - tslib
+    - typedarray
+    - websocket-driver
+    - websocket-extensions

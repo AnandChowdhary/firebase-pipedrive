@@ -1,18 +1,17 @@
 import axios from "axios";
-import {
-  initializeApp,
-  credential,
-  ServiceAccount,
-  firestore,
-} from "firebase-admin";
+import { initializeApp, credential, ServiceAccount, firestore } from "firebase-admin";
 import { config } from "dotenv";
 import dayjs from "dayjs";
 import ElasticSearch from "@elastic/elasticsearch";
+import { Unqueue } from "unqueue";
+import { init, captureException } from "@sentry/node";
 import Phone from "awesome-phonenumber";
 import AWS from "aws-sdk";
 import { Client, PlaceInputType } from "@googlemaps/google-maps-services-js";
 const createAwsElasticsearchConnector = require("aws-elasticsearch-connector");
 config();
+
+init({ dsn: "https://a0ef4642e9d443ad8c91e1b7b583b64a@o457711.ingest.sentry.io/5476450" });
 
 const FIREBASE_SERVICE_ACCOUNT_KEY: ServiceAccount = JSON.parse(
   process.env.FIREBASE_SERVICE_ACCOUNT_KEY || ""
@@ -96,6 +95,10 @@ export const capitalizeFirstAndLastLetter = (string: string) => {
 
 const languageName = (key: string) => (key === "de" ? "German" : "English");
 
+const queue = new Unqueue({
+  onError: ({ metadata, error }) => captureException(error, { tags: metadata }),
+});
+
 export const addPerson = async (
   person: Person
 ): Promise<{
@@ -108,20 +111,17 @@ export const addPerson = async (
   return data;
 };
 
-export const addNote = async (
-  content: string,
-  deal_id: string
-): Promise<{
-  data: {
-    id: number;
-  };
-}> => {
-  const { data } = await api.post(`/notes?api_token=${API_KEY}`, {
-    content,
-    deal_id,
-  });
-  console.log("Added note", deal_id);
-  return data;
+export const addNote = async (content: string, deal_id: string) => {
+  queue.add(
+    async () => {
+      await api.post(`/notes?api_token=${API_KEY}`, {
+        content,
+        deal_id,
+      });
+      console.log("Added note", deal_id);
+    },
+    { command: "addNote", deal_id }
+  );
 };
 
 export const addLead = async (lead: Lead) => {
@@ -144,10 +144,7 @@ export const addSubscription = async (lead: {
   payments: Array<{ amount: number }>;
 }) => {
   try {
-    const { data } = await api.post(
-      `/subscriptions/recurring?api_token=${API_KEY}`,
-      lead
-    );
+    const { data } = await api.post(`/subscriptions/recurring?api_token=${API_KEY}`, lead);
     console.log("Added subscription");
     return data;
   } catch (error) {
@@ -160,13 +157,23 @@ export const getLead = async (id: string) => {
 };
 
 export const updateLead = async (id: string, data: any) => {
-  await api.put(`/deals/${id}?api_token=${API_KEY}`, data);
-  console.log("Updated lead", id);
+  queue.add(
+    async () => {
+      await api.put(`/deals/${id}?api_token=${API_KEY}`, data);
+      console.log("Updated lead", id);
+    },
+    { command: "updateLead", id }
+  );
 };
 
 export const updatePerson = async (id: number, data: any) => {
-  await api.put(`/persons/${id}?api_token=${API_KEY}`, data);
-  console.log("Updated person", id);
+  queue.add(
+    async () => {
+      await api.put(`/persons/${id}?api_token=${API_KEY}`, data);
+      console.log("Updated person", id);
+    },
+    { command: "updatePerson", id }
+  );
 };
 
 const getMapsData = async (location: string) => {
@@ -211,18 +218,13 @@ const migrateLiveLeads = async () => {
   });
 };
 
-const firebaseToPipedrive = async (
-  data?: firestore.DocumentData,
-  firebaseId?: string
-) => {
+const firebaseToPipedrive = async (data?: firestore.DocumentData, firebaseId?: string) => {
   if (data && data.email && !data.dev) {
     console.log("Sending record for", data.email);
     const person = await addPerson({
       name: capitalizeFirstAndLastLetter(data.name),
       email: [data.email.toLowerCase()],
-      phone: data.phone
-        ? [new Phone(data.phone, "CH").getNumber("international")]
-        : undefined,
+      phone: data.phone ? [new Phone(data.phone, "CH").getNumber("international")] : undefined,
     });
     const lead = await addLead({
       person_id: person.data.id,
@@ -230,9 +232,7 @@ const firebaseToPipedrive = async (
         data.numberOfRooms ? ` ${data.numberOfRooms}-room` : ""
       } ${
         data.locationName
-          ? `${capitalizeFirstLetter(
-              data.locationName.split(" ")[0]
-            )} apartment`
+          ? `${capitalizeFirstLetter(data.locationName.split(" ")[0])} apartment`
           : "apartment"
       }`,
       value: ((data.budget || 0) * 12 * (data.period || 1)).toString(),
@@ -243,14 +243,12 @@ const firebaseToPipedrive = async (
         `<p><strong>Onboarding responses</strong></p><ul>${Object.keys(data)
           .map(
             (key) =>
-              `<li><strong>${capitalizeFirstLetter(
-                key.replace(/([A-Z])/g, " $1")
-              )}:</strong> ${
+              `<li><strong>${capitalizeFirstLetter(key.replace(/([A-Z])/g, " $1"))}:</strong> ${
                 typeof data[key] === "object"
                   ? data[key]._seconds
-                    ? new Date(
-                        data[key]._seconds * 1000
-                      ).toLocaleString("en-CH", { timeZone: "Europe/Zurich" })
+                    ? new Date(data[key]._seconds * 1000).toLocaleString("en-CH", {
+                        timeZone: "Europe/Zurich",
+                      })
                     : `<code>${JSON.stringify(data[key])}</code>`
                   : data[key]
               }</li>`
@@ -284,17 +282,12 @@ const firebaseToPipedrive = async (
           Array.isArray(data.photosUrls)
             ? data.photosUrls
                 .map(
-                  (
-                    img: string
-                  ) => `<a href="${img}" target="_blank" class="d-inline-block">
+                  (img: string) => `<a href="${img}" target="_blank" class="d-inline-block">
         <img
           alt=""
           class="big-uploaded-image"
           src="${img
-            .replace(
-              "https://kojcdn.com/",
-              "https://kojcdn.com/w_200,h_150,c_fill/"
-            )
+            .replace("https://kojcdn.com/", "https://kojcdn.com/w_200,h_150,c_fill/")
             .replace(".pdf", ".png")}" />
       </a>`
                 )
@@ -309,9 +302,7 @@ const firebaseToPipedrive = async (
           Array.isArray(data.floorPlanUrls)
             ? data.floorPlanUrls
                 .map(
-                  (
-                    img: string
-                  ) => `<a href="${img}" target="_blank" class="d-inline-block">
+                  (img: string) => `<a href="${img}" target="_blank" class="d-inline-block">
         <img 
           alt=""
           class="big-uploaded-image"
@@ -340,24 +331,17 @@ const firebaseToPipedrive = async (
         let original_utm_campaign = "";
         let location_subdivisions_0_names_en = "";
         elasticData.forEach((record: any) => {
-          page_url_pathname_lang =
-            page_url_pathname_lang || record?._source.page_url_pathname_lang;
-          location_city_names_en =
-            location_city_names_en || record?._source.location_city_names_en;
-          user_agent_os_name =
-            user_agent_os_name || record?._source.user_agent_os_name;
+          page_url_pathname_lang = page_url_pathname_lang || record?._source.page_url_pathname_lang;
+          location_city_names_en = location_city_names_en || record?._source.location_city_names_en;
+          user_agent_os_name = user_agent_os_name || record?._source.user_agent_os_name;
           user_agent_browser_name =
             user_agent_browser_name || record?._source.user_agent_browser_name;
           version = version || record?._source.version;
-          original_utm_source =
-            original_utm_source || record?._source.original_utm_source;
-          original_utm_medium =
-            original_utm_medium || record?._source.original_utm_medium;
-          original_utm_campaign =
-            original_utm_campaign || record?._source.original_utm_campaign;
+          original_utm_source = original_utm_source || record?._source.original_utm_source;
+          original_utm_medium = original_utm_medium || record?._source.original_utm_medium;
+          original_utm_campaign = original_utm_campaign || record?._source.original_utm_campaign;
           location_subdivisions_0_names_en =
-            location_subdivisions_0_names_en ||
-            record?._source.location_subdivisions_0_names_en;
+            location_subdivisions_0_names_en || record?._source.location_subdivisions_0_names_en;
         });
         if (
           page_url_pathname_lang ||
@@ -372,41 +356,24 @@ const firebaseToPipedrive = async (
         ) {
           let text = "<p><strong>Analytics data</strong></p>";
           text += `<ul>
-          <li><strong>City:</strong> ${
-            location_city_names_en || "<em>Unknown</em>"
-          }</li>
-          <li><strong>Area:</strong> ${
-            location_subdivisions_0_names_en || "<em>Unknown</em>"
-          }</li>
-          <li><strong>Operating system:</strong> ${
-            user_agent_os_name || "<em>Unknown</em>"
-          }</li>
-          <li><strong>Browser:</strong> ${
-            user_agent_browser_name || "<em>Unknown</em>"
-          }</li>
-          <li><strong>Site version:</strong> ${
-            version || "<em>Unknown</em>"
-          }</li>
+          <li><strong>City:</strong> ${location_city_names_en || "<em>Unknown</em>"}</li>
+          <li><strong>Area:</strong> ${location_subdivisions_0_names_en || "<em>Unknown</em>"}</li>
+          <li><strong>Operating system:</strong> ${user_agent_os_name || "<em>Unknown</em>"}</li>
+          <li><strong>Browser:</strong> ${user_agent_browser_name || "<em>Unknown</em>"}</li>
+          <li><strong>Site version:</strong> ${version || "<em>Unknown</em>"}</li>
         </ul>`;
           elasticData.forEach((item: any) => {
-            page_url_pathname_lang =
-              page_url_pathname_lang || item._source.page_url_pathname_lang;
-            location_city_names_en =
-              location_city_names_en || item._source.location_city_names_en;
-            user_agent_os_name =
-              user_agent_os_name || item._source.user_agent_os_name;
+            page_url_pathname_lang = page_url_pathname_lang || item._source.page_url_pathname_lang;
+            location_city_names_en = location_city_names_en || item._source.location_city_names_en;
+            user_agent_os_name = user_agent_os_name || item._source.user_agent_os_name;
             user_agent_browser_name =
               user_agent_browser_name || item._source.user_agent_browser_name;
             version = version || item._source.version;
-            original_utm_source =
-              original_utm_source || item._source.original_utm_source;
-            original_utm_medium =
-              original_utm_medium || item._source.original_utm_medium;
-            original_utm_campaign =
-              original_utm_campaign || item._source.original_utm_campaign;
+            original_utm_source = original_utm_source || item._source.original_utm_source;
+            original_utm_medium = original_utm_medium || item._source.original_utm_medium;
+            original_utm_campaign = original_utm_campaign || item._source.original_utm_campaign;
             location_subdivisions_0_names_en =
-              location_subdivisions_0_names_en ||
-              item._source.location_subdivisions_0_names_en;
+              location_subdivisions_0_names_en || item._source.location_subdivisions_0_names_en;
           });
           let updateData: any = {};
           if (original_utm_source !== "<em>Unknown</em>")
@@ -423,16 +390,10 @@ const firebaseToPipedrive = async (
           }
           updateData[CustomFields.FIREBASE_RECORD_ID] = firebaseId;
           updateData[CustomFields.REFERRER_SOURCE] =
-            original_utm_medium === "online_advertising"
-              ? "Online ads"
-              : "Organic";
+            original_utm_medium === "online_advertising" ? "Online ads" : "Organic";
           updateData[CustomFields.RENTAL_PERIOD] = data.period * 12;
           updateData[CustomFields.MONTHLY_BUDGET] = data.budget;
-          if (
-            (data.timeline || "").match(
-              /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
-            )
-          )
+          if ((data.timeline || "").match(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/))
             updateData[CustomFields.MOVING_IN_DAY] = data.timeline;
           updateData[`${CustomFields.MONTHLY_BUDGET}_currency`] = "GI_";
           await updateLead(lead.data.id, updateData);
@@ -514,10 +475,7 @@ const updateRecords = async () => {
   const { data } = await api.get(`/deals?api_token=${API_KEY}`);
 
   const closeDateIds: string[] = data.data
-    .filter(
-      (item: any) =>
-        item[CustomFields.MOVING_IN_DAY] && !item.expected_close_date
-    )
+    .filter((item: any) => item[CustomFields.MOVING_IN_DAY] && !item.expected_close_date)
     .map((item: any) => item.id);
   for await (const id of closeDateIds) {
     const item = await getLead(id);

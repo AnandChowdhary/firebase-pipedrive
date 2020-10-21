@@ -1,0 +1,188 @@
+---
+name: sax
+version: 1.2.1
+type: npm
+summary: An evented streaming XML parser in JavaScript
+homepage: https://github.com/isaacs/sax-js#readme
+license: other
+licenses:
+- sources: LICENSE
+  text: |
+    The ISC License
+
+    Copyright (c) Isaac Z. Schlueter and Contributors
+
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted, provided that the above
+    copyright notice and this permission notice appear in all copies.
+
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+    WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+    MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+    ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+    WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+    ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+    IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+    ====
+
+    `String.fromCodePoint` by Mathias Bynens used according to terms of MIT
+    License, as follows:
+
+        Copyright Mathias Bynens <https://mathiasbynens.be/>
+
+        Permission is hereby granted, free of charge, to any person obtaining
+        a copy of this software and associated documentation files (the
+        "Software"), to deal in the Software without restriction, including
+        without limitation the rights to use, copy, modify, merge, publish,
+        distribute, sublicense, and/or sell copies of the Software, and to
+        permit persons to whom the Software is furnished to do so, subject to
+        the following conditions:
+
+        The above copyright notice and this permission notice shall be
+        included in all copies or substantial portions of the Software.
+
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+        LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+        OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+        WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+- sources: LICENSE-W3C.html
+  text: "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html
+    xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"><head><meta
+    http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><meta name=\"generator\"
+    content=\"HTML Tidy for Mac OS X (vers 31 October 2006 - Apple Inc. build 13),
+    see www.w3.org\" /><title>W3C Software Notice and License</title><link rel=\"stylesheet\"
+    href=\"/2008/site/css/minimum\" type=\"text/css\" media=\"handheld, all\" /><style
+    type=\"text/css\" media=\"print, screen and (min-width: 481px)\" xml:space=\"preserve\">\n
+    \    @import url(\"/2008/site/css/advanced\");\n</style><link href=\"/2008/site/css/minimum\"
+    rel=\"stylesheet\" type=\"text/css\" media=\"handheld, only screen and (max-device-width:
+    480px)\" /><meta name=\"viewport\" content=\"width=device-width\" /><link rel=\"stylesheet\"
+    href=\"/2008/site/css/print\" type=\"text/css\" media=\"print\" /><link rel=\"shortcut
+    icon\" href=\"/2008/site/images/favicon.ico\" type=\"image/x-icon\" /></head><body
+    id=\"www-w3-org\" class=\"w3c_public\"><div id=\"w3c_container\">\n    \n    \n\n
+    \        <div id=\"w3c_mast\">\n            <h1 class=\"logo\">\n               <a
+    tabindex=\"2\" accesskey=\"1\" href=\"/\"><img src=\"/2008/site/images/logo-w3c-mobile-lg\"
+    width=\"90\" height=\"53\" alt=\"W3C\" /></a>\n               <span class=\"alt-logo\">W3C</span>\n
+    \           </h1>\n\n            <div id=\"w3c_nav\">\n               \n               \n\n
+    \              <form action=\"/Help/search\" method=\"get\" enctype=\"application/x-www-form-urlencoded\"><div
+    class=\"w3c_sec_nav\"><!-- --></div><ul class=\"main_nav\"><li class=\"first-item\">\n
+    \                       <a href=\"/standards/\">Standards</a>\n                     </li><li>\n
+    \                       <a href=\"/participate/\">Participate</a>\n                     </li><li>\n
+    \                       <a href=\"/Consortium/membership\">Membership</a>\n                     </li><li
+    class=\"last-item\">\n                        <a href=\"/Consortium/\">About W3C</a>\n
+    \                    </li><li class=\"search-item\">\n                        <div
+    id=\"search-form\">\n                           <input tabindex=\"3\" class=\"text\"
+    name=\"q\" value=\"\" title=\"Search\" type=\"text\" />\n                           <button
+    id=\"search-submit\" name=\"search-submit\" type=\"submit\"><img class=\"submit\"
+    src=\"/2008/site/images/search-button\" alt=\"Search\" width=\"21\" height=\"17\"
+    /></button>\n                        </div>\n                     </li></ul></form>\n
+    \           </div>\n            \n         </div>\n         \n\n         <div
+    id=\"w3c_main\">\n            <div id=\"w3c_logo_shadow\" class=\"w3c_leftCol\">\n
+    \              <img height=\"32\" alt=\"\" src=\"/2008/site/images/logo-shadow\"
+    />\n            </div>\n            \n            <div class=\"w3c_leftCol\"><h2
+    class=\"offscreen\">Site Navigation</h2>\n    <h3 class=\"category\"><span class=\"ribbon\"><a
+    href=\"/Consortium/Legal/ipr-notice.html\" title=\"Up to Policies and Legal Information\">Policies
+    and Legal Information <img src=\"/2008/site/images/header-link\" alt=\"Header
+    link\" width=\"13\" height=\"13\" class=\"header-link\" /></a></span></h3>\n       <ul
+    class=\"theme\">\n        <li><a href=\"/Consortium/Legal/2008/04-testsuite-copyright.html\">Licenses
+    for W3C Test Suites</a></li>\n        <li><a href=\"/2004/10/27-testcases.html\">Policies
+    for Contribution of Test Cases to W3C</a></li>\n        <li><a href=\"/Consortium/Legal/IPR-FAQ-20000620.html\">Intellectual
+    Rights FAQ</a></li>\n        <li><a href=\"/Consortium/Legal/privacy-statement-20000612.html\">W3C
+    Privacy Statements</a></li>\n        <li><a href=\"/Consortium/Legal/2002/copyright-documents-20021231.html\">W3C
+    Document License</a></li>\n        <li><a href=\"/Consortium/Legal/2002/trademarks-20021231.html\">W3C
+    Trademarks and Generic Terms</a></li>\n        <li><a href=\"/Consortium/Legal/2002/trademark-license-20021231.html\">W3C&#xAE;
+    Trademark and Service Mark License</a></li>\n        <li><a class=\"current\">W3C
+    Software Notice and License</a></li>\n        <li><a href=\"/Consortium/Legal/2002/collaborators-agreement-20021231.html\">W3C
+    Invited Expert and Collaborators Agreement</a></li>\n        <li><a href=\"/Consortium/Persistence.html\">W3C
+    URI Persistence Policy</a></li>\n        <li><a href=\"/1999/10/21-mirroring-policy.html\">Mirroring
+    the W3C Site</a></li>\n        <li><a href=\"/Consortium/Legal/2006/08-copyright-translations.html\">Translations
+    of the Copyright Notice</a></li>\n       </ul>\n       <br /></div>\n            <div
+    class=\"w3c_mainCol\">\n               <div id=\"w3c_crumbs\">\n       <div id=\"w3c_crumbs_frame\">\n
+    \       <ul class=\"bct\"> <!-- .bct / Breadcrumbs -->\n          <li class=\"skip\"><a
+    tabindex=\"1\" accesskey=\"2\" title=\"Skip to content (e.g., when browsing via
+    audio)\" href=\"#w3c_content_body\">Skip</a></li>\n          <li><a href=\"/\">W3C</a>&#xA0;<span
+    class=\"cr\">&#xBB;</span>&#xA0;</li>\n          <li><a href=\"/Consortium/\">About&#xA0;W3C</a>&#xA0;<span
+    class=\"cr\">&#xBB;</span>&#xA0;</li>\n          <li><a href=\"/Consortium/facts.html\">Facts&#xA0;About&#xA0;W3C</a>&#xA0;<span
+    class=\"cr\">&#xBB;</span>&#xA0;</li>\n          <li><a href=\"/Consortium/Legal/ipr-notice.html\">Policies&#xA0;and&#xA0;Legal&#xA0;Information</a>&#xA0;<span
+    class=\"cr\">&#xBB;</span>&#xA0;</li>\n          <li class=\"current\">W3C Software
+    Notice and License</li>\n        </ul>            \n     </div>\n    </div>\n
+    \              <h1 class=\"title\">W3C Software Notice and License</h1>\n               <div
+    id=\"w3c_content_body\">\n                  <div class=\"line\">\n                     <p
+    class=\"intro tPadding\">This work (and included software, documentation such
+    as READMEs, or other\nrelated items) is being provided by the copyright holders
+    under the following\nlicense.</p>\n<h2>License</h2>\n                     \n                     <p
+    class=\"tPadding\">\nBy obtaining, using and/or copying this work, you (the licensee)\nagree
+    that you have read, understood, and will comply with the following\nterms and
+    conditions.</p>\n\n                     <p>Permission to copy, modify, and distribute
+    this software and its\ndocumentation, with or without modification,&#xA0;for any
+    purpose and without\nfee or royalty is hereby granted, provided that you include
+    the following on\nALL copies of the software and documentation or portions thereof,
+    including\nmodifications:</p>\n\n                     <ul class=\"show_items\"><li>The
+    full text of this NOTICE in a location viewable to users of the\n    redistributed
+    or derivative work.</li><li>Any pre-existing intellectual property disclaimers,
+    notices, or terms\n    and conditions. If none exist, the <a href=\"copyright-software-short-notice-20021231.html\">W3C
+    Software Short\n    Notice</a> should be included (hypertext is preferred, text
+    is permitted)\n    within the body of any redistributed or derivative code.</li><li>Notice
+    of any changes or modifications to the files, including the date\n    changes
+    were made. (We recommend you provide URIs to the location from\n    which the
+    code is derived.)</li></ul>\n\n<h2>Disclaimers</h2>\n\n                     <p>THIS
+    SOFTWARE AND DOCUMENTATION IS PROVIDED \"AS IS,\" AND COPYRIGHT HOLDERS\nMAKE
+    NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT\nLIMITED
+    TO, WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR\nPURPOSE OR THAT
+    THE USE OF THE SOFTWARE OR DOCUMENTATION WILL NOT INFRINGE\nANY THIRD PARTY PATENTS,
+    COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.</p>\n\n                     <p>COPYRIGHT
+    HOLDERS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR\nCONSEQUENTIAL
+    DAMAGES ARISING OUT OF ANY USE OF THE SOFTWARE OR\nDOCUMENTATION.</p>\n\n                     <p>The
+    name and trademarks of copyright holders may NOT be used in\nadvertising or publicity
+    pertaining to the software without specific, written\nprior permission. Title
+    to copyright in this software and any associated\ndocumentation will at all times
+    remain with copyright holders.</p>\n\n                     <h2>Notes</h2>\n\n\t
+    \                   <p>This version: http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231</p>\n\n
+    \                    <p>This formulation of W3C's notice and license became active
+    on December 31\n2002. This version removes the copyright ownership notice such
+    that this\nlicense can be used with materials other than those owned by the W3C,\nreflects
+    that ERCIM is now a host of the W3C, includes references to this\nspecific dated
+    version of the license, and removes the ambiguous grant of\n\"use\". Otherwise,
+    this version is the same as the <a href=\"http://www.w3.org/Consortium/Legal/copyright-software-19980720\">previous\nversion</a>
+    and is written so as to preserve the <a href=\"http://www.gnu.org/philosophy/license-list.html#GPLCompatibleLicenses\">Free\nSoftware
+    Foundation's assessment of GPL compatibility</a> and <a href=\"http://www.opensource.org/licenses/W3C.php\">OSI's
+    certification</a>\nunder the <a href=\"http://www.opensource.org/docs/definition.php\">Open
+    Source\nDefinition</a>.</p>\n                  </div>\n               </div>\n
+    \           </div>\n         </div>\n         \n         \n         \n      </div><div
+    id=\"w3c_footer\">\n         <div id=\"w3c_footer-inner\">\n            <h2 class=\"offscreen\">Footer
+    Navigation</h2>\n            <div class=\"w3c_footer-nav\">\n               <h3>Navigation</h3>\n
+    \              <ul class=\"footer_top_nav\"><li>\n                     <a href=\"/\">Home</a>\n
+    \                 </li><li>\n                     <a href=\"/standards/\">Standards</a>\n
+    \                 </li><li>\n                     <a href=\"/participate/\">Participate</a>\n
+    \                 </li><li>\n                     <a href=\"/Consortium/membership\">Membership</a>\n
+    \                 </li><li class=\"last-item\">\n                     <a href=\"/Consortium/\">About
+    W3C</a>\n                  </li></ul>\n            </div>\n            <div class=\"w3c_footer-nav\">\n
+    \              <h3>Contact W3C</h3>\n               <ul class=\"footer_bottom_nav\"><li>\n
+    \                    <a href=\"/Consortium/contact\">Contact</a>\n                  </li><li>\n
+    \                    <a accesskey=\"0\" href=\"/Help/\">Help and FAQ</a>\n                  </li><li>\n
+    \                    <a href=\"/Consortium/sponsor/\">Sponsor / Donate</a>\n                  </li><li>\n
+    \                    <a href=\"/Consortium/siteindex\">Site Map</a>\n                  </li><li>\n
+    \                    <address id=\"w3c_signature\">\n                        <a
+    href=\"http://lists.w3.org/Archives/Public/site-comments/\">Feedback</a></address>\n
+    \                 </li></ul>\n            </div>\n            <div class=\"w3c_footer-nav\">\n
+    \              <h3>W3C Updates</h3>\n               <ul class=\"footer_follow_nav\"><li>\n
+    \                    <a href=\"http://twitter.com/W3C\" title=\"Follow W3C on
+    Twitter\">\n                        <img src=\"/2008/site/images/twitter-bird\"
+    alt=\"Twitter\" width=\"78\" height=\"83\" class=\"social-icon\" />\n                     </a>\n
+    \                    <a href=\"http://identi.ca/w3c\" title=\"See W3C on Identica\">\n
+    \                       <img src=\"/2008/site/images/identica-logo\" alt=\"Identica\"
+    width=\"91\" height=\"83\" class=\"social-icon\" />\n                     </a>\n
+    \                 </li></ul>\n            </div>\n            <p class=\"copyright\">Copyright
+    &#xA9; 2012 W3C <sup>&#xAE;</sup> (<a href=\"http://www.csail.mit.edu/\">\n                  <acronym
+    title=\"Massachusetts Institute of Technology\">MIT</acronym>\n               </a>,
+    <a href=\"http://www.ercim.org/\">\n                  <acronym title=\"European
+    Research Consortium for Informatics and Mathematics\"> ERCIM</acronym>\n               </a>,
+    <a href=\"http://www.keio.ac.jp/\">Keio</a>) <a href=\"/Consortium/Legal/ipr-notice\">Usage
+    policies apply</a>.</p>\n         </div>\n      </div><!-- Generated from data/scripts.php,
+    ../../smarty/{scripts.tpl} --><!-- At the bottom for performance reasons --><div
+    id=\"w3c_scripts\">\n         <script type=\"text/javascript\" src=\"/2008/site/js/main\"
+    xml:space=\"preserve\"><!-- --></script>\n      </div></body></html>\n"
+notices: []

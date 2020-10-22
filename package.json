@@ -45,7 +45,7 @@
     "@sentry/tracing": "^5.27.0",
     "awesome-phonenumber": "^2.40.0",
     "aws-elasticsearch-connector": "^9.0.0",
-    "aws-sdk": "^2.775.0",
+    "aws-sdk": "^2.776.0",
     "axios": "^0.20.0",
     "dayjs": "^1.9.3",
     "firebase-admin": "^9.2.0",

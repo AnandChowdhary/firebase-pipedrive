@@ -46,7 +46,7 @@
     "awesome-phonenumber": "^2.40.0",
     "aws-elasticsearch-connector": "^9.0.0",
     "aws-sdk": "^2.777.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "dayjs": "^1.9.3",
     "firebase-admin": "^9.3.0",
     "unqueue": "^1.1.1"

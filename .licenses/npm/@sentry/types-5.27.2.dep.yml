@@ -1,9 +1,9 @@
 ---
-name: "@sentry/node"
+name: "@sentry/types"
 version: 5.27.2
 type: npm
-summary: Official Sentry SDK for Node.js
-homepage: https://github.com/getsentry/sentry-javascript/tree/master/packages/node
+summary: Types for all Sentry JavaScript SDKs
+homepage: https://github.com/getsentry/sentry-javascript/tree/master/packages/types
 license: bsd-3-clause
 licenses:
 - sources: LICENSE

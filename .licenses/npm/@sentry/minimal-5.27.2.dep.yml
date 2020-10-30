@@ -1,9 +1,9 @@
 ---
-name: "@sentry/node"
+name: "@sentry/minimal"
 version: 5.27.2
 type: npm
-summary: Official Sentry SDK for Node.js
-homepage: https://github.com/getsentry/sentry-javascript/tree/master/packages/node
+summary: Sentry minimal library that can be used in other packages
+homepage: https://github.com/getsentry/sentry-javascript/tree/master/packages/minimal
 license: bsd-3-clause
 licenses:
 - sources: LICENSE

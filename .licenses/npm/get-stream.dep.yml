@@ -1,9 +1,9 @@
 ---
-name: mimic-response
-version: 2.1.0
+name: get-stream
+version: 6.0.0
 type: npm
-summary: Mimic a Node.js HTTP response stream
-homepage: https://github.com/sindresorhus/mimic-response#readme
+summary: Get a stream as a string, buffer, or array
+homepage: https://github.com/sindresorhus/get-stream#readme
 license: mit
 licenses:
 - sources: license

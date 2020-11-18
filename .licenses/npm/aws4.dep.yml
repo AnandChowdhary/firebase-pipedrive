@@ -1,6 +1,6 @@
 ---
 name: aws4
-version: 1.10.1
+version: 1.11.0
 type: npm
 summary: Signs and prepares requests using AWS Signature Version 4
 homepage: https://github.com/mhart/aws4#readme

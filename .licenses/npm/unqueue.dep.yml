@@ -1,6 +1,6 @@
 ---
 name: unqueue
-version: 1.1.1
+version: 1.1.2
 type: npm
 summary: "\U0001F4CF Simple, zero-config, in-memory queue for async JS tasks"
 homepage: https://github.com/koj-co/unqueue#readme

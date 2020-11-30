@@ -1,3 +1,17 @@
+## [v1.7.4](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.3...v1.7.4) (2020-11-30)
+
+### ⬆️ Dependency updates
+
+- [`586e8b6`](https://github.com/koj-co/firebase-pipedrive/commit/586e8b6)  Bump semantic-release from 17.2.4 to 17.3.0
+- [`4a876bb`](https://github.com/koj-co/firebase-pipedrive/commit/4a876bb)  Bump awesome-phonenumber from 2.40.0 to 2.41.0
+- [`ab9f995`](https://github.com/koj-co/firebase-pipedrive/commit/ab9f995)  Bump unqueue from 1.1.1 to 1.1.2
+- [`85297a3`](https://github.com/koj-co/firebase-pipedrive/commit/85297a3)  Bump aws-sdk from 2.796.0 to 2.797.0
+- [`5b05855`](https://github.com/koj-co/firebase-pipedrive/commit/5b05855)  Bump aws-sdk from 2.797.0 to 2.798.0
+- [`051869f`](https://github.com/koj-co/firebase-pipedrive/commit/051869f)  Bump @sentry/tracing from 5.27.4 to 5.27.6
+- [`65c1d68`](https://github.com/koj-co/firebase-pipedrive/commit/65c1d68)  Bump @sentry/node from 5.27.4 to 5.27.6
+- [`3af2713`](https://github.com/koj-co/firebase-pipedrive/commit/3af2713)  Bump aws-sdk from 2.798.0 to 2.799.0
+- [`a6d255c`](https://github.com/koj-co/firebase-pipedrive/commit/a6d255c)  Bump @types/node from 14.14.9 to 14.14.10
+
 ## [v1.7.3](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.2...v1.7.3) (2020-11-23)
 
 ### ⬆️ Dependency updates

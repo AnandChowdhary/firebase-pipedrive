@@ -1,3 +1,18 @@
+## v1.7.5 (2020-12-07)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.5) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.4...v1.7.5) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.5) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.5.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.5.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`6cd9682`](https://github.com/koj-co/firebase-pipedrive/commit/6cd9682)  Bump unqueue from 1.1.2 to 1.1.3
+- [`a098180`](https://github.com/koj-co/firebase-pipedrive/commit/a098180)  Bump aws-sdk from 2.799.0 to 2.800.0
+- [`0d074e0`](https://github.com/koj-co/firebase-pipedrive/commit/0d074e0)  Bump @sentry/tracing from 5.27.6 to 5.28.0
+- [`b97af83`](https://github.com/koj-co/firebase-pipedrive/commit/b97af83)  Bump aws-sdk from 2.800.0 to 2.802.0
+- [`3ab95e0`](https://github.com/koj-co/firebase-pipedrive/commit/3ab95e0)  Bump @sentry/node from 5.27.6 to 5.28.0
+- [`c83f87c`](https://github.com/koj-co/firebase-pipedrive/commit/c83f87c)  Bump @koj/config from 1.2.9 to 1.2.11
+- [`4de5e54`](https://github.com/koj-co/firebase-pipedrive/commit/4de5e54)  Bump ts-node from 9.0.0 to 9.1.0
+- [`220af54`](https://github.com/koj-co/firebase-pipedrive/commit/220af54)  Bump aws-sdk from 2.802.0 to 2.803.0
+
 ## [v1.7.4](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.3...v1.7.4) (2020-11-30)
 
 ### ⬆️ Dependency updates

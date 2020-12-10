@@ -1,9 +1,9 @@
 ---
-name: p-limit
-version: 3.0.2
+name: yocto-queue
+version: 0.1.0
 type: npm
-summary: Run multiple promise-returning & async functions with limited concurrency
-homepage: https://github.com/sindresorhus/p-limit#readme
+summary: Tiny queue data structure
+homepage: https://github.com/sindresorhus/yocto-queue#readme
 license: mit
 licenses:
 - sources: license

@@ -1,3 +1,24 @@
+## v1.7.6 (2020-12-14)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.6) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.5...v1.7.6) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.6) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.6.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.6.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`570e9ce`](https://github.com/koj-co/firebase-pipedrive/commit/570e9ce)  Bump awesome-phonenumber from 2.41.0 to 2.42.0
+- [`5406dc8`](https://github.com/koj-co/firebase-pipedrive/commit/5406dc8)  Bump dayjs from 1.9.6 to 1.9.7
+- [`f19509a`](https://github.com/koj-co/firebase-pipedrive/commit/f19509a)  Bump aws-sdk from 2.803.0 to 2.804.0
+- [`0a55492`](https://github.com/koj-co/firebase-pipedrive/commit/0a55492)  Bump ts-node from 9.1.0 to 9.1.1
+- [`e7af79d`](https://github.com/koj-co/firebase-pipedrive/commit/e7af79d)  Bump @sentry/tracing from 5.28.0 to 5.29.0
+- [`61d0e1e`](https://github.com/koj-co/firebase-pipedrive/commit/61d0e1e)  Bump aws-sdk from 2.804.0 to 2.805.0
+- [`d71d6f0`](https://github.com/koj-co/firebase-pipedrive/commit/d71d6f0)  Bump @sentry/node from 5.28.0 to 5.29.0
+- [`defd6fd`](https://github.com/koj-co/firebase-pipedrive/commit/defd6fd)  Bump @types/node from 14.14.10 to 14.14.11
+- [`da96b9b`](https://github.com/koj-co/firebase-pipedrive/commit/da96b9b)  Bump aws-sdk from 2.805.0 to 2.806.0
+- [`0b113cb`](https://github.com/koj-co/firebase-pipedrive/commit/0b113cb)  Bump firebase-admin from 9.4.1 to 9.4.2
+- [`02468fb`](https://github.com/koj-co/firebase-pipedrive/commit/02468fb)  Bump aws-sdk from 2.806.0 to 2.807.0
+- [`0885a08`](https://github.com/koj-co/firebase-pipedrive/commit/0885a08)  Bump actions/setup-node from v2.1.2 to v2.1.3
+- [`c98a4c2`](https://github.com/koj-co/firebase-pipedrive/commit/c98a4c2)  Bump @types/node from 14.14.11 to 14.14.12
+- [`7f5a2a4`](https://github.com/koj-co/firebase-pipedrive/commit/7f5a2a4)  Bump aws-sdk from 2.807.0 to 2.808.0
+
 ## v1.7.5 (2020-12-07)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.5) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.4...v1.7.5) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.5) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.5.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.5.tar.gz))

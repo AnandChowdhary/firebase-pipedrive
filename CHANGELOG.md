@@ -1,3 +1,23 @@
+## v1.7.7 (2020-12-21)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.7) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.6...v1.7.7) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.7) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.7.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.7.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`289cf74`](https://github.com/koj-co/firebase-pipedrive/commit/289cf74)  Bump typescript from 4.1.2 to 4.1.3
+- [`b0454cb`](https://github.com/koj-co/firebase-pipedrive/commit/b0454cb)  Bump aws-sdk from 2.808.0 to 2.809.0
+- [`60ccffc`](https://github.com/koj-co/firebase-pipedrive/commit/60ccffc)  Bump @types/node from 14.14.12 to 14.14.13
+- [`ae05d9b`](https://github.com/koj-co/firebase-pipedrive/commit/ae05d9b)  Bump aws-sdk from 2.809.0 to 2.810.0
+- [`af18fa3`](https://github.com/koj-co/firebase-pipedrive/commit/af18fa3)  Bump aws-sdk from 2.810.0 to 2.811.0
+- [`d2bb878`](https://github.com/koj-co/firebase-pipedrive/commit/d2bb878)  Bump @types/node from 14.14.13 to 14.14.14
+- [`c55d06e`](https://github.com/koj-co/firebase-pipedrive/commit/c55d06e)  Bump actions/setup-node from v2.1.3 to v2.1.4
+- [`117785f`](https://github.com/koj-co/firebase-pipedrive/commit/117785f)  Bump aws-sdk from 2.811.0 to 2.812.0
+- [`cd501bd`](https://github.com/koj-co/firebase-pipedrive/commit/cd501bd)  Bump @sentry/tracing from 5.29.0 to 5.29.1
+- [`3cd4822`](https://github.com/koj-co/firebase-pipedrive/commit/3cd4822)  Bump @sentry/node from 5.29.0 to 5.29.1
+- [`ff024be`](https://github.com/koj-co/firebase-pipedrive/commit/ff024be)  Bump @sentry/node from 5.29.1 to 5.29.2
+- [`66c6698`](https://github.com/koj-co/firebase-pipedrive/commit/66c6698)  Bump aws-sdk from 2.812.0 to 2.813.0
+- [`c969b33`](https://github.com/koj-co/firebase-pipedrive/commit/c969b33)  Bump @sentry/tracing from 5.29.1 to 5.29.2
+
 ## v1.7.6 (2020-12-14)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.6) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.5...v1.7.6) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.6) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.6.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.6.tar.gz))

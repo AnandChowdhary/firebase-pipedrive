@@ -1,3 +1,19 @@
+## v1.7.8 (2020-12-28)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.8) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.7...v1.7.8) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.8) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.8.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.8.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`5b93b12`](https://github.com/koj-co/firebase-pipedrive/commit/5b93b12)  Bump vsoch/pull-request-action from 1.0.12 to 1.0.13
+- [`3465126`](https://github.com/koj-co/firebase-pipedrive/commit/3465126)  Bump awesome-phonenumber from 2.42.0 to 2.43.0
+- [`1a55dad`](https://github.com/koj-co/firebase-pipedrive/commit/1a55dad)  Bump aws-sdk from 2.813.0 to 2.814.0
+- [`3cb88d5`](https://github.com/koj-co/firebase-pipedrive/commit/3cb88d5)  Bump pascalgn/automerge-action from v0.12.0 to v0.13.0
+- [`fea37be`](https://github.com/koj-co/firebase-pipedrive/commit/fea37be)  Bump aws-sdk from 2.814.0 to 2.815.0
+- [`427959b`](https://github.com/koj-co/firebase-pipedrive/commit/427959b)  Bump axios from 0.21.0 to 0.21.1
+- [`a2c9041`](https://github.com/koj-co/firebase-pipedrive/commit/a2c9041)  Bump aws-sdk from 2.815.0 to 2.816.0
+- [`7e89585`](https://github.com/koj-co/firebase-pipedrive/commit/7e89585)  Bump aws-sdk from 2.816.0 to 2.817.0
+- [`a277901`](https://github.com/koj-co/firebase-pipedrive/commit/a277901)  Bump @types/node from 14.14.14 to 14.14.16
+
 ## v1.7.7 (2020-12-21)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.7) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.6...v1.7.7) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.7) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.7.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.7.tar.gz))

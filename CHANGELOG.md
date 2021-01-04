@@ -1,3 +1,16 @@
+## v1.7.9 (2021-01-04)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.9) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.8...v1.7.9) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.9) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.9.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.9.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`e0332c3`](https://github.com/koj-co/firebase-pipedrive/commit/e0332c3)  Bump dayjs from 1.9.7 to 1.9.8
+- [`57dab16`](https://github.com/koj-co/firebase-pipedrive/commit/57dab16)  Bump aws-sdk from 2.817.0 to 2.818.0
+- [`573d1e4`](https://github.com/koj-co/firebase-pipedrive/commit/573d1e4)  Bump aws-sdk from 2.818.0 to 2.819.0
+- [`0056770`](https://github.com/koj-co/firebase-pipedrive/commit/0056770)  Bump semantic-release from 17.3.0 to 17.3.1
+- [`d80fbef`](https://github.com/koj-co/firebase-pipedrive/commit/d80fbef)  Bump @types/node from 14.14.16 to 14.14.17
+- [`73b96b1`](https://github.com/koj-co/firebase-pipedrive/commit/73b96b1)  Bump aws-sdk from 2.819.0 to 2.820.0
+
 ## v1.7.8 (2020-12-28)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.8) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.7...v1.7.8) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.8) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.8.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.8.tar.gz))

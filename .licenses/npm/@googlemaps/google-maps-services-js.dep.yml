@@ -1,6 +1,6 @@
 ---
 name: "@googlemaps/google-maps-services-js"
-version: 3.1.13
+version: 3.1.14
 type: npm
 summary: Node.js client library for Google Maps API Web Services
 homepage: https://github.com/googlemaps/google-maps-services-js

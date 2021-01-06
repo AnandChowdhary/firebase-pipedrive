@@ -1,6 +1,6 @@
 ---
 name: retry-axios
-version: 2.2.1
+version: 2.4.0
 type: npm
 summary: Retry HTTP requests with Axios.
 homepage: https://github.com/JustinBeckwith/retry-axios#readme

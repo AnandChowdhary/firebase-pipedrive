@@ -1,6 +1,6 @@
 ---
 name: is-buffer
-version: 2.0.4
+version: 2.0.5
 type: npm
 summary: Determine if an object is a Buffer
 homepage: https://github.com/feross/is-buffer#readme

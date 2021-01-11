@@ -1,3 +1,19 @@
+## v1.7.10 (2021-01-11)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.10) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.9...v1.7.10) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.10) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.10.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.10.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`80a7a93`](https://github.com/koj-co/firebase-pipedrive/commit/80a7a93)  Bump @types/node from 14.14.17 to 14.14.19
+- [`6c7a3e5`](https://github.com/koj-co/firebase-pipedrive/commit/6c7a3e5)  Bump dayjs from 1.9.8 to 1.10.1
+- [`b885c0d`](https://github.com/koj-co/firebase-pipedrive/commit/b885c0d)  Bump @types/node from 14.14.19 to 14.14.20
+- [`c4bd2f8`](https://github.com/koj-co/firebase-pipedrive/commit/c4bd2f8)  Bump aws-sdk from 2.820.0 to 2.821.0
+- [`ab960d5`](https://github.com/koj-co/firebase-pipedrive/commit/ab960d5)  Bump dayjs from 1.10.1 to 1.10.2
+- [`df9ecd2`](https://github.com/koj-co/firebase-pipedrive/commit/df9ecd2)  Bump aws-sdk from 2.821.0 to 2.822.0
+- [`4f7f48b`](https://github.com/koj-co/firebase-pipedrive/commit/4f7f48b)  Bump @googlemaps/google-maps-services-js
+- [`9f37f45`](https://github.com/koj-co/firebase-pipedrive/commit/9f37f45)  Bump aws-sdk from 2.822.0 to 2.823.0
+- [`5056590`](https://github.com/koj-co/firebase-pipedrive/commit/5056590)  Bump aws-sdk from 2.823.0 to 2.824.0
+
 ## v1.7.9 (2021-01-04)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.9) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.8...v1.7.9) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.9) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.9.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.9.tar.gz))

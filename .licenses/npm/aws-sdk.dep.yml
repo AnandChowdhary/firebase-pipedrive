@@ -1,6 +1,6 @@
 ---
 name: aws-sdk
-version: 2.826.0
+version: 2.827.0
 type: npm
 summary: AWS SDK for JavaScript
 homepage: https://github.com/aws/aws-sdk-js

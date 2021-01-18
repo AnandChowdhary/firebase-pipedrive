@@ -1,3 +1,20 @@
+## v1.7.11 (2021-01-18)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.11) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.10...v1.7.11) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.11) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.11.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.11.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`52b9d90`](https://github.com/koj-co/firebase-pipedrive/commit/52b9d90)  Bump dayjs from 1.10.2 to 1.10.3
+- [`1a5697e`](https://github.com/koj-co/firebase-pipedrive/commit/1a5697e)  Bump aws-sdk from 2.824.0 to 2.825.0
+- [`1a8e35e`](https://github.com/koj-co/firebase-pipedrive/commit/1a8e35e)  Bump aws-sdk from 2.825.0 to 2.826.0
+- [`fead46b`](https://github.com/koj-co/firebase-pipedrive/commit/fead46b)  Bump aws-sdk from 2.826.0 to 2.827.0
+- [`36bcbb6`](https://github.com/koj-co/firebase-pipedrive/commit/36bcbb6)  Bump @sentry/node from 5.29.2 to 5.30.0
+- [`5f1e34e`](https://github.com/koj-co/firebase-pipedrive/commit/5f1e34e)  Bump semantic-release from 17.3.1 to 17.3.2
+- [`983d605`](https://github.com/koj-co/firebase-pipedrive/commit/983d605)  Bump @sentry/tracing from 5.29.2 to 5.30.0
+- [`d0fd6d9`](https://github.com/koj-co/firebase-pipedrive/commit/d0fd6d9)  Bump aws-sdk from 2.827.0 to 2.828.0
+- [`fb3247a`](https://github.com/koj-co/firebase-pipedrive/commit/fb3247a)  Bump @googlemaps/google-maps-services-js
+- [`8f462fe`](https://github.com/koj-co/firebase-pipedrive/commit/8f462fe)  Bump @types/node from 14.14.20 to 14.14.21
+
 ## v1.7.10 (2021-01-11)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.10) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.9...v1.7.10) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.10) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.10.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.10.tar.gz))

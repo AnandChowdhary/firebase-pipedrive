@@ -1,3 +1,20 @@
+## v1.7.12 (2021-01-25)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.12) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.11...v1.7.12) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.12) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.12.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.12.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`ca652a9`](https://github.com/koj-co/firebase-pipedrive/commit/ca652a9)  Bump awesome-phonenumber from 2.43.0 to 2.44.0
+- [`093232b`](https://github.com/koj-co/firebase-pipedrive/commit/093232b)  Bump semantic-release from 17.3.2 to 17.3.3
+- [`eaa5227`](https://github.com/koj-co/firebase-pipedrive/commit/eaa5227)  Bump @types/node from 14.14.21 to 14.14.22
+- [`e624663`](https://github.com/koj-co/firebase-pipedrive/commit/e624663)  Bump semantic-release from 17.3.3 to 17.3.4
+- [`88e62e5`](https://github.com/koj-co/firebase-pipedrive/commit/88e62e5)  Bump aws-sdk from 2.828.0 to 2.829.0
+- [`1e5148e`](https://github.com/koj-co/firebase-pipedrive/commit/1e5148e)  Bump @googlemaps/google-maps-services-js
+- [`3696f9f`](https://github.com/koj-co/firebase-pipedrive/commit/3696f9f)  Bump semantic-release from 17.3.4 to 17.3.6
+- [`2251144`](https://github.com/koj-co/firebase-pipedrive/commit/2251144)  Bump @sentry/tracing from 5.30.0 to 6.0.1
+- [`5b13779`](https://github.com/koj-co/firebase-pipedrive/commit/5b13779)  Bump aws-sdk from 2.829.0 to 2.830.0
+- [`2a4beea`](https://github.com/koj-co/firebase-pipedrive/commit/2a4beea)  Bump @sentry/node from 5.30.0 to 6.0.1
+
 ## v1.7.11 (2021-01-18)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.11) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.10...v1.7.11) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.11) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.11.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.11.tar.gz))

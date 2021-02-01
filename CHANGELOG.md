@@ -1,3 +1,19 @@
+## v1.7.13 (2021-02-01)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.13) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.12...v1.7.13) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.13) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.13.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.13.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`fc960e9`](https://github.com/koj-co/firebase-pipedrive/commit/fc960e9)  Bump semantic-release from 17.3.6 to 17.3.7
+- [`aa9fdd2`](https://github.com/koj-co/firebase-pipedrive/commit/aa9fdd2)  Bump aws-sdk from 2.830.0 to 2.831.0
+- [`d85af22`](https://github.com/koj-co/firebase-pipedrive/commit/d85af22)  Bump dayjs from 1.10.3 to 1.10.4
+- [`3871395`](https://github.com/koj-co/firebase-pipedrive/commit/3871395)  Bump aws-elasticsearch-connector from 9.0.1 to 9.0.3
+- [`a757286`](https://github.com/koj-co/firebase-pipedrive/commit/a757286)  Bump @sentry/node from 6.0.1 to 6.0.2
+- [`42978bd`](https://github.com/koj-co/firebase-pipedrive/commit/42978bd)  Bump @sentry/tracing from 6.0.1 to 6.0.2
+- [`141b24f`](https://github.com/koj-co/firebase-pipedrive/commit/141b24f)  Bump aws-sdk from 2.831.0 to 2.832.0
+- [`e5c095c`](https://github.com/koj-co/firebase-pipedrive/commit/e5c095c)  Bump awesome-phonenumber from 2.44.0 to 2.45.0
+- [`5b436e4`](https://github.com/koj-co/firebase-pipedrive/commit/5b436e4)  Bump aws-sdk from 2.832.0 to 2.833.0
+
 ## v1.7.12 (2021-01-25)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.12) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.11...v1.7.12) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.12) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.12.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.12.tar.gz))

@@ -49,6 +49,6 @@
     "axios": "^0.21.0",
     "dayjs": "^1.9.3",
     "firebase-admin": "^9.3.0",
-    "unqueue": "^1.1.1"
+    "unqueue": "^2.0.8"
   }
 }

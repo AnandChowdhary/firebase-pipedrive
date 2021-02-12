@@ -1,6 +1,6 @@
 ---
 name: awesome-phonenumber
-version: 2.45.0
+version: 2.46.0
 type: npm
 summary: Google's libphonenumber pre-compiled with the closure compiler
 homepage: https://github.com/grantila/awesome-phonenumber#readme

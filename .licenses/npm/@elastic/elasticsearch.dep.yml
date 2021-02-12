@@ -1,6 +1,6 @@
 ---
 name: "@elastic/elasticsearch"
-version: 7.10.0
+version: 7.11.0
 type: npm
 summary: The official Elasticsearch client for Node.js
 homepage: http://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html

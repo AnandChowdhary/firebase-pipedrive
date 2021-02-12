@@ -1,6 +1,6 @@
 ---
 name: secure-json-parse
-version: 2.1.0
+version: 2.3.0
 type: npm
 summary: JSON parse with prototype poisoning protection
 homepage: https://github.com/fastify/secure-json-parse#readme

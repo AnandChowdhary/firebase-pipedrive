@@ -1,3 +1,21 @@
+## v1.7.15 (2021-02-15)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.15) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.14...v1.7.15) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.15) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.15.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.15.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`e76a5b0`](https://github.com/koj-co/firebase-pipedrive/commit/e76a5b0)  Bump aws-sdk from 2.838.0 to 2.839.0
+- [`86857a0`](https://github.com/koj-co/firebase-pipedrive/commit/86857a0)  Bump aws-sdk from 2.839.0 to 2.840.0
+- [`2c3f369`](https://github.com/koj-co/firebase-pipedrive/commit/2c3f369)  Bump semantic-release from 17.3.7 to 17.3.8
+- [`ef21e9b`](https://github.com/koj-co/firebase-pipedrive/commit/ef21e9b)  Bump typescript from 4.1.3 to 4.1.4
+- [`94147bc`](https://github.com/koj-co/firebase-pipedrive/commit/94147bc)  Bump aws-sdk from 2.840.0 to 2.841.0
+- [`0e37c81`](https://github.com/koj-co/firebase-pipedrive/commit/0e37c81)  Bump firebase-admin from 9.4.2 to 9.5.0
+- [`005da04`](https://github.com/koj-co/firebase-pipedrive/commit/005da04)  Bump typescript from 4.1.4 to 4.1.5
+- [`dd56fb7`](https://github.com/koj-co/firebase-pipedrive/commit/dd56fb7)  Bump awesome-phonenumber from 2.45.0 to 2.46.0
+- [`45548a8`](https://github.com/koj-co/firebase-pipedrive/commit/45548a8)  Bump @elastic/elasticsearch from 7.10.0 to 7.11.0
+- [`fb9bfdf`](https://github.com/koj-co/firebase-pipedrive/commit/fb9bfdf)  Bump @types/node from 14.14.25 to 14.14.26
+- [`d39082f`](https://github.com/koj-co/firebase-pipedrive/commit/d39082f)  Bump aws-sdk from 2.841.0 to 2.842.0
+
 ## v1.7.14 (2021-02-08)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.14) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.13...v1.7.14) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.14) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.14.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.14.tar.gz))

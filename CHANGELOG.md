@@ -1,3 +1,19 @@
+## v1.7.17 (2021-03-01)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.17) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.16...v1.7.17) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.17) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.17.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.17.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`bd92462`](https://github.com/koj-co/firebase-pipedrive/commit/bd92462)  Bump aws-sdk from 2.847.0 to 2.848.0
+- [`be83bfd`](https://github.com/koj-co/firebase-pipedrive/commit/be83bfd)  Bump @types/node from 14.14.30 to 14.14.31
+- [`2f90919`](https://github.com/koj-co/firebase-pipedrive/commit/2f90919)  Bump actions/setup-node from v2.1.4 to v2.1.5
+- [`7de83ec`](https://github.com/koj-co/firebase-pipedrive/commit/7de83ec)  Bump aws-sdk from 2.848.0 to 2.849.0
+- [`4cc3304`](https://github.com/koj-co/firebase-pipedrive/commit/4cc3304)  Bump typescript from 4.1.5 to 4.2.2
+- [`b1e1082`](https://github.com/koj-co/firebase-pipedrive/commit/b1e1082)  Bump aws-sdk from 2.849.0 to 2.850.0
+- [`cc31385`](https://github.com/koj-co/firebase-pipedrive/commit/cc31385)  Bump aws-sdk from 2.850.0 to 2.851.0
+- [`ec1ac9c`](https://github.com/koj-co/firebase-pipedrive/commit/ec1ac9c)  Bump semantic-release from 17.3.9 to 17.4.0
+- [`b483fd0`](https://github.com/koj-co/firebase-pipedrive/commit/b483fd0)  Bump aws-sdk from 2.851.0 to 2.852.0
+
 ## v1.7.16 (2021-02-22)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.16) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.15...v1.7.16) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.16) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.16.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.16.tar.gz))

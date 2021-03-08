@@ -1,6 +1,6 @@
 {
   "name": "firebase-pipedrive",
-  "version": "1.7.17",
+  "version": "1.7.18",
   "description": "Add Firebase records as Pipedrive CRM leads in real-time",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

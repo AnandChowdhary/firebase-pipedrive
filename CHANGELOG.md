@@ -1,3 +1,20 @@
+## v1.7.18 (2021-03-08)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.18) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.17...v1.7.18) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.18) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.18.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.18.tar.gz))
+
+### ⬆️ Dependency updates
+
+- [`0cd039a`](https://github.com/koj-co/firebase-pipedrive/commit/0cd039a)  Bump aws-sdk from 2.852.0 to 2.853.0
+- [`116c359`](https://github.com/koj-co/firebase-pipedrive/commit/116c359)  Bump @sentry/node from 6.2.0 to 6.2.1
+- [`2b517d1`](https://github.com/koj-co/firebase-pipedrive/commit/2b517d1)  Bump aws-sdk from 2.853.0 to 2.854.0
+- [`07d28a7`](https://github.com/koj-co/firebase-pipedrive/commit/07d28a7)  Bump @sentry/tracing from 6.2.0 to 6.2.1
+- [`2e7235a`](https://github.com/koj-co/firebase-pipedrive/commit/2e7235a)  Bump aws-sdk from 2.854.0 to 2.855.0
+- [`f9470f9`](https://github.com/koj-co/firebase-pipedrive/commit/f9470f9)  Bump awesome-phonenumber from 2.46.0 to 2.47.0
+- [`bde9838`](https://github.com/koj-co/firebase-pipedrive/commit/bde9838)  Bump semantic-release from 17.4.0 to 17.4.1
+- [`31ccd08`](https://github.com/koj-co/firebase-pipedrive/commit/31ccd08)  Bump aws-sdk from 2.855.0 to 2.856.0
+- [`296cf0c`](https://github.com/koj-co/firebase-pipedrive/commit/296cf0c)  Bump aws-sdk from 2.856.0 to 2.857.0
+- [`39684a2`](https://github.com/koj-co/firebase-pipedrive/commit/39684a2)  Bump typescript from 4.2.2 to 4.2.3
+
 ## v1.7.17 (2021-03-01)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.17) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.16...v1.7.17) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.17) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.17.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.17.tar.gz))

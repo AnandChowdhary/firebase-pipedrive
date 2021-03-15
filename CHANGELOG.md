@@ -1,3 +1,7 @@
+## v1.7.19 (2021-03-15)
+
+[📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.19) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.18...v1.7.19) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.19) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.19.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.19.tar.gz))
+
 ## v1.7.18 (2021-03-08)
 
 [📝 Release notes](https://github.com/koj-co/firebase-pipedrive/releases/tag/v1.7.18) · [💻 Compare](https://github.com/koj-co/firebase-pipedrive/compare/v1.7.17...v1.7.18) · [🔖 Tag](https://github.com/koj-co/firebase-pipedrive/tree/v1.7.18) · 🗄️ Archive ([zip](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.18.zip) · [tar.gz](https://github.com/koj-co/firebase-pipedrive/archive/v1.7.18.tar.gz))
